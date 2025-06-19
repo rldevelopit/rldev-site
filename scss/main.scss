@@ -115,7 +115,7 @@ a {
 // 6. Services grid
 .services {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin: 2rem 0;
 
@@ -124,6 +124,12 @@ a {
     padding: 1.5rem;
     border-radius: 0.5rem;
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
 
     .icon {
       width: 40px;
