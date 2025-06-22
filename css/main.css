@@ -25,31 +25,40 @@ a:hover {
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
 }
 
 .hero {
-  display: flex;
-  align-items: center;
   background: #FFFAF0;
   padding: 0 3rem;
-  gap: 10rem;
 }
-.hero__image {
-  width: 400px;
-  height: 400px;
-  background-size: cover;
+.hero-wrapper {
+  gap: 3rem;
+  display: flex;
+  align-items: center;
+}
+.hero-image {
+  width: 250px;
+  aspect-ratio: 1/1;
+  background-image: url("assets/img/rll_logo.png");
+  background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
 }
-.hero__content h1 {
+.hero-content h1 {
   font-size: 3.5rem;
   color: #4D321B;
   line-height: 80px;
   font-weight: 500;
 }
-.hero__content__buttons {
+.hero-content p {
+  font-size: 2rem;
+  font-weight: 500;
+}
+.hero-buttons {
   display: flex;
   gap: 1rem;
 }
@@ -57,29 +66,78 @@ a:hover {
 .btn {
   font-weight: 600;
   cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
 }
-.btn--light {
+.btn.has-icon {
+  justify-content: center;
+  gap: 1.25rem;
+}
+.btn.full {
+  width: 100%;
+}
+.btn.big {
+  font-size: 1.25rem;
+  padding: 0.5rem;
+}
+.btn-light {
   background: #F1E5D0;
   color: #4D321B;
-  border: none;
-  padding: 0.75rem 1.5rem;
+  fill: #4D321B;
 }
-.btn--dark {
+.btn-dark {
   background: #4D321B;
   color: #fff;
-  border: none;
-  padding: 0.75rem 1.5rem;
 }
-.btn--outline {
+.btn-outline {
   background: none;
   color: #4D321B;
   border: 1px solid #4D321B;
   padding: 0.5rem 1rem;
 }
-.btn--link {
+.btn-link {
   background: none;
   color: #4D321B;
   border: none;
+}
+
+.services {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.services .service-card {
+  background: #F1E5D0;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.services .service-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.services .service-card .icon {
+  width: 40px;
+  height: 40px;
+  fill: var(--primary);
+  margin-bottom: 1rem;
+}
+.services .service-card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+.services .service-card p {
+  font-size: 0.9rem;
+  color: var(--primary);
+}
+
+.work {
+  background: #FFFAF0;
 }
 
 /*# sourceMappingURL=main.css.map */
