@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Sit N Stay",
+    "url": "https://sitnstaypets.com/",
+    "description": "Sit n Stay is a full service petcare company in Burein, Washington. was a website I did in collaboration with <a href='https://montanab.com/'>Montana Banana</a>. It's a custom designed theme built on a WordPress. This was a fun project as it allowed us to be creative, such as the hover events over the navigation and paws on the call to action. I especially enjoyed working on the color mosaic on the services page. Not only does the services mosaic design look good, but it was a good practice in how to make things responsive for mobile.",
+    "category": "website",
+    "images": ["/assets/projects/sitnstay1.png"],
+    "tech": ["php", "html", "wordpress"]
+  },
+  {
+    "name": "Jacob Lawrence",
+    "url": "https://jacobandgwenlawrence.org/",
+    "description": "Jacob and Gwen Lawrence is a information resource for the artist Jacob Lawrence. This website is built on WordPress with a custom built photo gallery plugin. Not only was this project fun, but it was also extremely informative to learn about the lives of the artists. I like how we were able to tie in his art along with the content to make his website an art piece of its own. A colloboration with Montana Banana.",
+    "category": "website",
+    "images": ["/assets/projects/jacobandgwen.png"],
+    "tech": ["php", "html", "wordpress"]
+  },
+    {
+    "name": "Progress Virginia Education Fund",
+    "url": "https://pvef.org/",
+    "description": "Progress Virginia Education Fund is a nonprofit located in Virginia. Built on WordPress on 3 days due to a short timeline.",
+    "category": "website",
+    "images": ["/assets/projects/pvef.png"],
+    "tech": ["php", "html", "wordpress"]
+  },
+      {
+    "name": "Virginians For Reproductive Freedom",
+    "url": "https://va4reprofreedom.org",
+    "description": "",
+    "category": "website",
+    "images": ["/assets/projects/va4.png"],
+    "tech": ["php", "html", "wordpress"]
+  }
+]

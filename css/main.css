@@ -139,5 +139,35 @@ a:hover {
 .work {
   background: #FFFAF0;
 }
+.work .work-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0.5rem;
+  background: #fff;
+  margin-bottom: 1rem;
+  min-height: 300px;
+}
+.work .work-item .tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.work .work-item .tech span {
+  background-color: #4D321B;
+  color: #fff;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 0.25rem;
+}
+.work .work-item .work-item-details {
+  padding: 1rem;
+}
+.work .work-item .work-item-image {
+  width: 400px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
 /*# sourceMappingURL=main.css.map */

@@ -67,21 +67,24 @@ a {
   padding: 0 $spacer-10;
 
   &-wrapper {
-  gap: $spacer-10;
 
+    
+
+
+    gap: $spacer-10;
     display: flex;
     align-items: center;
   }
 
 
   &-image {
- width: 250px;           // Or max-width: 350px; for larger screens
-  aspect-ratio: 1 / 1;    // Keeps the image square, tweak for your logo shape
-  background-image: url('assets/img/rll_logo.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  flex-shrink: 0;         // Prevents squishing on small screens
+    width: 250px; // Or max-width: 350px; for larger screens
+    aspect-ratio: 1 / 1; // Keeps the image square, tweak for your logo shape
+    background-image: url('assets/img/rll_logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0; // Prevents squishing on small screens
   }
 
   &-content {
@@ -201,4 +204,43 @@ a {
 
 .work {
   background: $card-bg;
+
+  .work-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: $spacer-2;
+    background: $white;
+    margin-bottom: $spacer-4;
+    min-height: 300px;
+
+    .tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacer-1;
+
+      span {
+        background-color: $primary;
+        color: $white;
+        border-radius: $radius;
+        font-size: .75rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: $spacer-1;
+
+      }
+    }
+
+    .work-item-details {
+      padding: $spacer-4;
+    }
+
+    .work-item-image {
+      width: 400px;
+      
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+
+
 }
