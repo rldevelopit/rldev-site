@@ -26,7 +26,14 @@ $spacer-12: 4rem;
 
 $radius: .25rem;
 
-// 3. Base
+// 3. Mixins
+@mixin desktop {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+// 4. Base
 * {
   box-sizing: border-box;
 }
@@ -55,62 +62,94 @@ a {
 }
 
 .container {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: $spacer-4;
+  padding: $spacer-2;
+  
+  @include desktop {
+    max-width: 1200px;
+    padding: $spacer-4;
+  }
 }
 
-// 4. Hero
+// 5. Hero
 .hero {
-
   background: $card-bg;
-  padding: 0 $spacer-10;
+  padding: $spacer-4 $spacer-2;
 
-  &-wrapper {
-
-    
-
-
-    gap: $spacer-10;
-    display: flex;
-    align-items: center;
+  @include desktop {
+    padding: 0 $spacer-10;
   }
 
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $spacer-4;
+    text-align: center;
+    
+    @include desktop {
+      flex-direction: row;
+      align-items: center;
+      gap: $spacer-10;
+      text-align: left;
+    }
+  }
 
   &-image {
-    width: 250px; // Or max-width: 350px; for larger screens
-    aspect-ratio: 1 / 1; // Keeps the image square, tweak for your logo shape
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
     background-image: url('assets/img/rll_logo.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    flex-shrink: 0; // Prevents squishing on small screens
+    flex-shrink: 0;
+    
+    @include desktop {
+      width: 250px;
+      height: 250px;
+      margin: 0;
+    }
   }
 
   &-content {
     h1 {
-      font-size: 3.5rem;
+      font-size: 2rem;
       color: $primary;
-      line-height: 80px;
+      line-height: 1.2;
       font-weight: 500;
+      margin-bottom: $spacer-2;
+      
+      @include desktop {
+        font-size: 3.5rem;
+        line-height: 80px;
+      }
     }
 
     p {
-      font-size: 2rem;
+      font-size: 1.1rem;
       font-weight: 500;
+      margin-bottom: $spacer-4;
+      
+      @include desktop {
+        font-size: 2rem;
+      }
     }
-
   }
 
   &-buttons {
     display: flex;
-    gap: $spacer-4;
-
+    flex-direction: column;
+    gap: $spacer-2;
+    
+    @include desktop {
+      flex-direction: row;
+      gap: $spacer-4;
+    }
   }
 }
 
 
-// 5. Buttons
+// 6. Buttons
 .btn {
   font-weight: 600;
   cursor: pointer;
@@ -163,19 +202,27 @@ a {
 }
 
 
-// 6. Services grid
+// 7. Services grid
 .services {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 1rem;
   margin: 2rem 0;
+  
+  @include desktop {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   .service-card {
     background: $secondary;
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 0.5rem;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    @include desktop {
+      padding: 1.5rem;
+    }
 
     &:hover {
       transform: translateY(-5px) scale(1.02);
@@ -183,20 +230,35 @@ a {
     }
 
     .icon {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       fill: var(--primary);
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
+      
+      @include desktop {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 1rem;
+      }
     }
 
     h3 {
       margin-bottom: 0.5rem;
       color: var(--primary);
+      font-size: 1rem;
+      
+      @include desktop {
+        font-size: 1.2rem;
+      }
     }
 
     p {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--primary);
+      
+      @include desktop {
+        font-size: 0.9rem;
+      }
     }
   }
 }
@@ -207,40 +269,63 @@ a {
 
   .work-item {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: $spacer-2;
+    grid-template-columns: 1fr;
+    gap: 0;
     background: $white;
     margin-bottom: $spacer-4;
-    min-height: 300px;
+    border-radius: $radius;
+    overflow: hidden;
+    
+    @include desktop {
+      grid-template-columns: 1fr 2fr;
+      gap: $spacer-2;
+      min-height: 300px;
+    }
 
     .tech {
       display: flex;
       flex-wrap: wrap;
       gap: $spacer-1;
+      margin-top: $spacer-2;
 
       span {
         background-color: $primary;
         color: $white;
         border-radius: $radius;
-        font-size: .75rem;
+        font-size: .7rem;
         text-transform: uppercase;
         font-weight: 500;
         padding: $spacer-1;
-
+        
+        @include desktop {
+          font-size: .75rem;
+        }
       }
     }
 
     .work-item-details {
-      padding: $spacer-4;
+      padding: $spacer-2;
+      order: 2;
+      
+      @include desktop {
+        padding: $spacer-4;
+        order: 0;
+      }
     }
 
     .work-item-image {
-      width: 400px;
-      
+      width: 100%;
+      height: 200px;
       background-size: cover;
       background-repeat: no-repeat;
+      background-position: center;
+      order: 1;
+      
+      @include desktop {
+        width: 400px;
+        height: auto;
+        order: 0;
+      }
     }
   }
-
-
 }
