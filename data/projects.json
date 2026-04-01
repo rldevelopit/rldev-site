@@ -15,7 +15,7 @@
     "images": ["/assets/projects/jacobandgwen.png"],
     "tech": ["php", "html", "wordpress"]
   },
-    {
+  {
     "name": "Progress Virginia Education Fund",
     "url": "https://pvef.org/",
     "description": "Progress Virginia Education Fund is a nonprofit located in Virginia. Built on WordPress on 3 days due to a short timeline.",
@@ -23,8 +23,16 @@
     "images": ["/assets/projects/pvef.png"],
     "tech": ["php", "html", "wordpress"]
   },
-      {
+  {
     "name": "Virginians For Reproductive Freedom",
+    "url": "https://va4reprofreedom.org",
+    "description": "",
+    "category": "website",
+    "images": ["/assets/projects/va4.png"],
+    "tech": ["php", "html", "wordpress"]
+  },
+  {
+    "name": "",
     "url": "https://va4reprofreedom.org",
     "description": "",
     "category": "website",
