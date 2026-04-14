@@ -1,92 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="red">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RL</title>
+  <title>RLDev</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body>
-  <!-- Hero / Intro -->
+
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo" aria-label="Home">
+        <img src="assets/icons/rl-logo.svg" alt="Rumeal Lovell Logo" />
+      </a>
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="btn btn-outline-primary open-card-modal">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
   <header class="hero">
-    <div class="container">
-
-      <div class="hero-wrapper">
-        <div style="background-image: url('assets/img/rll_logo.png')" class="hero-image"></div>
-        <div class="hero-content">
-          <p>
-            I’m Rumeal, a consultant on all things tech ready to elevate your online presence.
-            <strong>Let’s create something amazing together!</strong>
-          </p>
-          <div class="hero-buttons">
-            <button class="btn btn-light full has-icon big">
-              <span>Learn More</span>
-
-            </button>
-            <button class="btn btn-dark full has-icon big">
-              <span>Reach Out</span>
-            </button>
-          </div>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <p class="hero-text">
+          I'm Rumeal, a consultant on all things tech ready to elevate your online presence.
+        </p>
+        <p class="hero-cta"><strong>Let's create something amazing together!</strong></p>
+      </div>
+      <div class="hero-headshot">
+        <div class="headshot-circle">
+          <img src="assets/img/headshot.svg" alt="Rumeal Lovell" />
         </div>
-        
       </div>
     </div>
   </header>
 
-  <!-- Services Grid -->
-  <section class="services-grid">
-    <!-- Service Card 1 -->
+  <!-- Separator between hero and projects -->
+  <div class="section-separator">
+    <img src="assets/icons/separator.svg" alt="" aria-hidden="true" />
+  </div>
+
+  <!-- Featured Projects -->
+  <section id="work" class="projects">
     <div class="container">
-      <div class="services">
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-subtitle">Recent work showcasing modern web solutions across different industries</p>
+
+      <div class="project-grid"></div>
+    </div>
+  </section>
+
+  <!-- Separator between projects and services -->
+  <div class="section-separator">
+    <img src="assets/icons/separator.svg" alt="" aria-hidden="true" />
+  </div>
+
+  <!-- Services -->
+  <section id="about" class="services">
+    <div class="container">
+      <h2 class="section-title">Services</h2>
+      <p class="section-subtitle">· Comprehensive web consulting services, tailored to your business</p>
+
+      <div class="services-grid">
+
         <div class="service-card">
-          <h3>Data Services</h3>
-          <p>Making sense of data and getting it to where it needs to go.</p>
+          <div class="service-icon">
+            <img src="assets/icons/icon_web.svg" alt="" />
+          </div>
+          <h3>Web Development</h3>
+          <p>Custom build websites, using HTML, PHP, and frameworks, built with performance, accessibility, and responsiveness in mind.</p>
         </div>
-        <!-- Service Card 2 -->
+
         <div class="service-card">
+          <div class="service-icon">
+            <img src="assets/icons/icon_ai.svg" alt="" />
+          </div>
           <h3>AI & Automation</h3>
-          <p>
-            Exploring real ways AI and automation can save time and make life
-            easier.
-          </p>
+          <p>Exploring real ways AI and automation can save time and make life easier.</p>
         </div>
-        <!-- Service Card 3 -->
-        <div class="service-card">
 
-          <h3>Web Identity</h3>
-          <p>A website is more than a page. It’s an online home.</p>
-        </div>
-        <!-- Service Card 4 -->
         <div class="service-card">
-
+          <div class="service-icon">
+            <img src="assets/icons/icon_tech.png" alt="" />
+          </div>
           <h3>Technical Consulting</h3>
-          <p>
-            Not sure what you need? Let’s talk and figure it out together.
-          </p>
+          <p>Not sure what you need? Let's talk and figure it out together.</p>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- My Work -->
-  <section class="work">
-    <div class="container">
-
-      <h2>My Work</h2>
-
-
-
-
+  <!-- CTA / Contact -->
+  <section id="contact" class="cta">
+    <div class="container cta-inner">
+      <h2>Let's Work Together</h2>
+      <p>Have a project in mind? I'd love to hear about it. Let's discuss how we can bring your vision to life.</p>
+      <div class="cta-buttons">
+        <a class="btn btn-primary">Reach Out</a>
+      </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-  </footer>
+  <!-- Business Card Modal -->
+  <div class="card-modal-overlay" id="cardModal">
+    <div class="card-modal-scene">
+      <div class="business-card" id="businessCard">
 
-  <script src="js/main.js?version=1"></script>
+        <!-- Back (contact info) — visible by default -->
+        <div class="card-face card-back">
+          <div class="card-back-top">
+            <div class="card-back-logo">
+              <img src="assets/icons/rl-logo.svg" alt="RL Logo" />
+            </div>
+            <div class="card-back-tagline">
+              <span>Technical Consulting and Services</span>
+              <strong>rldev.co</strong>
+            </div>
+          </div>
+          <div class="card-back-center">
+            <a href="mailto:rumeal@rldev.co" class="card-email-link">rumeal@rldev.co</a>
+          </div>
+          <div class="card-back-bottom">
+            <div class="card-back-name">
+              <h3>Rumeal Lovell</h3>
+              <p>Principal Consultant</p>
+            </div>
+            <div class="card-back-contact">
+              <a href="mailto:rumeal@rldev.co" class="contact-row">
+                <span class="contact-icon olive-bg">&#9993;</span>
+                rumeal@rldev.co
+              </a>
+            </div>
+            <div class="card-back-headshot">
+              <img src="assets/img/headshot.svg" alt="Rumeal Lovell" />
+            </div>
+          </div>
+          <span class="card-hint">Click to flip</span>
+        </div>
+
+        <!-- Front (name + pattern) — hidden until flipped -->
+        <div class="card-face card-front">
+          <div class="card-front-content">
+            <h2>Rumeal<br>Lovell</h2>
+          </div>
+          <div class="card-front-pattern" aria-hidden="true"></div>
+          <span class="card-hint">Click to flip back</span>
+        </div>
+
+      </div>
+      <button class="card-modal-close" id="cardModalClose" aria-label="Close">&times;</button>
+    </div>
+  </div>
+
+  <script src="js/main.js?version=3"></script>
 </body>
 
 </html>

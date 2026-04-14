@@ -1,42 +1,50 @@
 [
   {
-    "name": "Sit N Stay",
-    "url": "https://sitnstaypets.com/",
-    "description": "Sit n Stay is a full service petcare company in Burein, Washington. was a website I did in collaboration with <a href='https://montanab.com/'>Montana Banana</a>. It's a custom designed theme built on a WordPress. This was a fun project as it allowed us to be creative, such as the hover events over the navigation and paws on the call to action. I especially enjoyed working on the color mosaic on the services page. Not only does the services mosaic design look good, but it was a good practice in how to make things responsive for mobile.",
-    "category": "website",
-    "images": ["/assets/projects/sitnstay1.png"],
-    "tech": ["php", "html", "wordpress"]
-  },
-  {
     "name": "Jacob Lawrence",
     "url": "https://jacobandgwenlawrence.org/",
-    "description": "Jacob and Gwen Lawrence is a information resource for the artist Jacob Lawrence. This website is built on WordPress with a custom built photo gallery plugin. Not only was this project fun, but it was also extremely informative to learn about the lives of the artists. I like how we were able to tie in his art along with the content to make his website an art piece of its own. A colloboration with Montana Banana.",
+    "description": "An informational resource for the artist Jacob Lawrence, built on WordPress with a custom photo gallery plugin. This project was a rewarding deep dive into the lives of the artists, tying in Lawrence's art with the content to make the site feel like an art piece itself. A collaboration with <a href='https://montanab.com/?src=rumeal'>Montana Banana</a>.",
     "category": "website",
     "images": ["/assets/projects/jacobandgwen.png"],
-    "tech": ["php", "html", "wordpress"]
+    "tech": ["php", "html", "wordpress", "sass", "javascript", "bulma", "advanced custom fields"]
   },
   {
     "name": "Progress Virginia Education Fund",
     "url": "https://pvef.org/",
-    "description": "Progress Virginia Education Fund is a nonprofit located in Virginia. Built on WordPress on 3 days due to a short timeline.",
+    "description": "A nonprofit based in Virginia. Built on WordPress within a 3-day turnaround due to a tight timeline.",
     "category": "website",
     "images": ["/assets/projects/pvef.png"],
-    "tech": ["php", "html", "wordpress"]
+    "tech": ["php", "html", "wordpress", "bootstrap", "css"]
   },
   {
-    "name": "Virginians For Reproductive Freedom",
-    "url": "https://va4reprofreedom.org",
-    "description": "",
+    "name": "Advocate Accounting",
+    "url": "https://advocate-accounting.com",
+    "description": "Revamped website focused on modernizing the design and improving accessibility. Includes an integrated shopping cart and training portal powered by Stripe.",
     "category": "website",
-    "images": ["/assets/projects/va4.png"],
-    "tech": ["php", "html", "wordpress"]
+    "images": ["/assets/projects/aa.png"],
+    "tech": ["php", "html", "wordpress", "tailwind", "css", "stripe api", "bunny cdn"]
   },
   {
-    "name": "",
-    "url": "https://va4reprofreedom.org",
-    "description": "",
+    "name": "Progress Alliance Technical Security Assessment",
+    "url": "",
+    "description": "Conducted a comprehensive technical security assessment for Progress Alliance. This included stakeholder interviews, penetration testing, and a detailed report with actionable remediation steps.",
+    "category": "tech",
+    "images": ["/assets/projects/PA_Logo_Color+transparent+small.webp"],
+    "tech": ["python", "information technology security", "inventory"]
+  },
+  {
+    "name": "WCA Data Hub Portal",
+    "url": "",
+    "description": "A custom-built data hub for Washington Community Alliance partners to submit support requests. Uses WordPress for user registration and membership management, backed by a custom MySQL database system and Google Drive integrations.",
+    "category": "tech",
+    "images": ["/assets/projects/pvef.png"],
+    "tech": ["php", "javascript", "wordpress", "mysql", "database management", "google drive"]
+  },
+  {
+    "name": "Sit N Stay",
+    "url": "https://sitnstaypets.com/",
+    "description": "A full-service petcare company in Burien, Washington. Features creative hover events over the navigation, paw-print call-to-action elements, and a responsive color mosaic on the services page. A collaboration with <a href='https://montanab.com/?src=rumeal'>Montana Banana</a>.",
     "category": "website",
-    "images": ["/assets/projects/va4.png"],
-    "tech": ["php", "html", "wordpress"]
+    "images": ["/assets/projects/sitnstay1.png"],
+    "tech": ["php", "html", "wordpress", "sass", "javascript", "bulma", "advanced custom fields"]
   }
 ]
