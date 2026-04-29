@@ -68,8 +68,8 @@ function initCardModal() {
   const closeBtn = document.getElementById('cardModalClose');
   if (!overlay || !card) return;
 
-  // Open modal from "Reach Out" button and nav Contact link
-  document.querySelectorAll('a[href="mailto:hello@rumeallovell.com"], .open-card-modal').forEach(function(link) {
+  // Open modal from any .open-card-modal trigger
+  document.querySelectorAll('.open-card-modal').forEach(function(link) {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       card.classList.remove('is-flipped');

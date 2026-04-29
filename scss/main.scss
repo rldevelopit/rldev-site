@@ -1,12 +1,6 @@
-// main.scss
-
-// 1. Google Font
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
-// ============================================================
-// 2. Theme system — swap via data-theme on <html>
-//    Brand colors from RL_Brand_Guidelines.pdf
-// ============================================================
+// theme — swap with data-theme on <html>
 :root,
 [data-theme="red"] {
   --accent:       #C85D47;
@@ -47,42 +41,34 @@
   --border:       #DDD9D2;
 }
 
-// ============================================================
-// 3. Spacing scale (8px base)
-// ============================================================
-$sp-1:  0.25rem;  // 4px
-$sp-2:  0.5rem;   // 8px
-$sp-3:  0.75rem;  // 12px
-$sp-4:  1rem;     // 16px
-$sp-5:  1.25rem;  // 20px
-$sp-6:  1.5rem;   // 24px
-$sp-8:  2rem;     // 32px
-$sp-10: 2.5rem;   // 40px
-$sp-12: 3rem;     // 48px
-$sp-16: 4rem;     // 64px
-$sp-20: 5rem;     // 80px
+// spacing (8px base)
+$sp-1:  0.25rem;
+$sp-2:  0.5rem;
+$sp-3:  0.75rem;
+$sp-4:  1rem;
+$sp-5:  1.25rem;
+$sp-6:  1.5rem;
+$sp-8:  2rem;
+$sp-10: 2.5rem;
+$sp-12: 3rem;
+$sp-16: 4rem;
+$sp-20: 5rem;
 
-// ============================================================
-// 4. Type scale (mobile-first → desktop)
-//    Mobile ~80% of desktop sizes
-// ============================================================
-$fs-body:          1rem;       // 16px mobile
-$fs-body-dt:       1.25rem;    // 20px desktop
-$fs-heading:       1.25rem;    // 20px mobile
-$fs-heading-dt:    1.5rem;     // 24px desktop
-$fs-card-title:    1rem;       // 16px mobile
-$fs-card-title-dt: 1.25rem;    // 20px desktop
-$fs-card-body:     0.875rem;   // 14px mobile
-$fs-card-body-dt:  1rem;       // 16px desktop
-$fs-tag:           0.625rem;   // 10px (same both)
-$fs-btn:           1rem;       // 16px mobile
-$fs-btn-dt:        1.25rem;    // 20px desktop
-$fs-nav:           1rem;       // 16px mobile
-$fs-nav-dt:        1.25rem;    // 20px desktop
+// type — mobile then desktop
+$fs-body:          1rem;
+$fs-body-dt:       1.25rem;
+$fs-heading:       1.25rem;
+$fs-heading-dt:    1.5rem;
+$fs-card-title:    1rem;
+$fs-card-title-dt: 1.25rem;
+$fs-card-body:     0.875rem;
+$fs-card-body-dt:  1rem;
+$fs-tag:           0.625rem;
+$fs-btn:           1rem;
+$fs-btn-dt:        1.25rem;
+$fs-nav:           1rem;
+$fs-nav-dt:        1.25rem;
 
-// ============================================================
-// 5. Base tokens
-// ============================================================
 $font-stack: 'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
 $radius-sm:  4px;
 $radius-md:  8px;
@@ -90,14 +76,11 @@ $radius-lg:  12px;
 $radius-full: 9999px;
 $max-width:  1120px;
 
-// 6. Breakpoint mixin
 @mixin desktop {
   @media (min-width: 768px) { @content; }
 }
 
-// ============================================================
-// 6. Reset & Base
-// ============================================================
+// reset
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
@@ -129,9 +112,7 @@ a { color: var(--text); text-decoration: none; }
   @include desktop { padding: 0 $sp-8; }
 }
 
-// ============================================================
-// 7. Navigation
-// ============================================================
+// nav
 .site-nav {
   padding: $sp-5 0;
 
@@ -163,9 +144,7 @@ a { color: var(--text); text-decoration: none; }
   }
 }
 
-// ============================================================
-// 8. Buttons
-// ============================================================
+// buttons
 .btn {
   display: inline-flex;
   align-items: center;
@@ -223,9 +202,7 @@ a { color: var(--text); text-decoration: none; }
   }
 }
 
-// ============================================================
-// 9. Hero
-// ============================================================
+// hero
 .hero {
   padding: $sp-8 0 $sp-12;
 
@@ -291,9 +268,7 @@ a { color: var(--text); text-decoration: none; }
   }
 }
 
-// ============================================================
-// 10. Section shared styles
-// ============================================================
+// shared section bits
 .section-title {
   text-align: center;
   font-size: $fs-heading;
@@ -323,9 +298,7 @@ a { color: var(--text); text-decoration: none; }
   }
 }
 
-// ============================================================
-// 11. Featured Projects
-// ============================================================
+// projects
 .projects {
   padding: $sp-12 0 $sp-8;
 
@@ -436,9 +409,7 @@ a { color: var(--text); text-decoration: none; }
   }
 }
 
-// ============================================================
-// 12. Services
-// ============================================================
+// services
 .services {
   padding: $sp-8 0 $sp-12;
 
@@ -496,9 +467,7 @@ a { color: var(--text); text-decoration: none; }
   }
 }
 
-// ============================================================
-// 13. Stats
-// ============================================================
+// stats
 .stats {
   padding: $sp-12 0;
   background: var(--accent-light);
@@ -540,9 +509,7 @@ a { color: var(--text); text-decoration: none; }
   font-weight: 500;
 }
 
-// ============================================================
-// 14. Quote
-// ============================================================
+// quote
 .quote-section {
   padding: $sp-12 0;
   background: var(--accent-light);
@@ -577,9 +544,7 @@ a { color: var(--text); text-decoration: none; }
   }
 }
 
-// ============================================================
-// 14. CTA / Contact
-// ============================================================
+// cta
 .cta {
   padding: $sp-12 0;
   text-align: center;
@@ -619,9 +584,7 @@ a { color: var(--text); text-decoration: none; }
   }
 }
 
-// ============================================================
-// 15. Business Card Modal
-// ============================================================
+// business card modal
 .card-modal-overlay {
   position: fixed;
   inset: 0;
@@ -666,7 +629,7 @@ a { color: var(--text); text-decoration: none; }
   &:hover { opacity: 1; }
 }
 
-// Card itself — standard business card aspect ratio 3.5 × 2
+// 3.5 × 2 card ratio
 $card-w: 520px;
 $card-h: 297px;
 
@@ -711,7 +674,6 @@ $card-h: 297px;
   letter-spacing: 0.04em;
 }
 
-// ---------- Front ----------
 .card-front {
   transform: rotateY(180deg);
   display: flex;
@@ -742,7 +704,6 @@ $card-h: 297px;
   background: url('../assets/business card/front-right-pattern.png') center / cover no-repeat;
 }
 
-// ---------- Back (default visible face) ----------
 .card-back {
   display: flex;
   flex-direction: column;
@@ -777,7 +738,7 @@ $card-h: 297px;
   strong { display: block; }
 }
 
-// Center email — mobile only
+// mobile only — center email
 .card-back-center {
   display: flex;
   align-items: center;
@@ -820,7 +781,7 @@ $card-h: 297px;
   }
 }
 
-// Desktop: show icon+email row; Mobile: hidden (center email used instead)
+// desktop only — icon + email row
 .card-back-contact {
   display: none;
   flex-direction: column;
@@ -829,7 +790,7 @@ $card-h: 297px;
   @include desktop { display: flex; }
 }
 
-// Headshot — mobile only, bottom-right
+// mobile only — bottom-right headshot
 .card-back-headshot {
   width: 48px;
   height: 48px;
@@ -884,9 +845,7 @@ $card-h: 297px;
   &.olive-bg  { background: var(--olive); }
 }
 
-// ============================================================
-// 16. Footer
-// ============================================================
+// footer
 .site-footer {
   padding: $sp-6 0 $sp-8;
 

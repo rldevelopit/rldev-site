@@ -6,12 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RLDev</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/main.css?ver=1" />
 </head>
 
 <body>
 
-  <!-- Navigation -->
   <nav class="site-nav">
     <div class="container nav-inner">
       <a href="/" class="nav-logo" aria-label="Home">
@@ -25,7 +24,6 @@
     </div>
   </nav>
 
-  <!-- Hero -->
   <header class="hero">
     <div class="container hero-inner">
       <div class="hero-content">
@@ -42,12 +40,10 @@
     </div>
   </header>
 
-  <!-- Separator between hero and projects -->
   <div class="section-separator">
     <img src="assets/icons/separator.svg" alt="" aria-hidden="true" />
   </div>
 
-  <!-- Featured Projects -->
   <section id="work" class="projects">
     <div class="container">
       <h2 class="section-title">Featured Projects</h2>
@@ -57,12 +53,10 @@
     </div>
   </section>
 
-  <!-- Separator between projects and services -->
   <div class="section-separator">
     <img src="assets/icons/separator.svg" alt="" aria-hidden="true" />
   </div>
 
-  <!-- Services -->
   <section id="about" class="services">
     <div class="container">
       <h2 class="section-title">Services</h2>
@@ -98,23 +92,22 @@
     </div>
   </section>
 
-  <!-- CTA / Contact -->
   <section id="contact" class="cta">
     <div class="container cta-inner">
       <h2>Let's Work Together</h2>
       <p>Have a project in mind? I'd love to hear about it. Let's discuss how we can bring your vision to life.</p>
       <div class="cta-buttons">
-        <a class="btn btn-primary">Reach Out</a>
+        <a href="#" class="btn btn-primary open-card-modal">Reach Out</a>
       </div>
     </div>
   </section>
 
-  <!-- Business Card Modal -->
+  <!-- business card modal -->
   <div class="card-modal-overlay" id="cardModal">
     <div class="card-modal-scene">
       <div class="business-card" id="businessCard">
 
-        <!-- Back (contact info) — visible by default -->
+        <!-- back face, shown first -->
         <div class="card-face card-back">
           <div class="card-back-top">
             <div class="card-back-logo">
@@ -146,7 +139,7 @@
           <span class="card-hint">Click to flip</span>
         </div>
 
-        <!-- Front (name + pattern) — hidden until flipped -->
+        <!-- front face, shown after flip -->
         <div class="card-face card-front">
           <div class="card-front-content">
             <h2>Rumeal<br>Lovell</h2>
@@ -160,7 +153,7 @@
     </div>
   </div>
 
-  <script src="js/main.js?version=3"></script>
+  <script src="js/main.js?version=4"></script>
 </body>
 
 </html>
