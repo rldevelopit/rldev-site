@@ -36,7 +36,7 @@
     "url": "",
     "description": "A custom-built data hub for Washington Community Alliance partners to submit support requests. Uses WordPress for user registration and membership management, backed by a custom MySQL database system and Google Drive integrations.",
     "category": "tech",
-    "images": ["/assets/projects/pvef.png"],
+    "images": ["/assets/projects/wcadatahub.png"],
     "tech": ["php", "javascript", "wordpress", "mysql", "database management", "google drive"]
   },
   {
