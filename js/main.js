@@ -64,41 +64,62 @@ function renderProjects(projects) {
 
 function initCardModal() {
   const overlay = document.getElementById('cardModal');
-  const card = document.getElementById('businessCard');
   const closeBtn = document.getElementById('cardModalClose');
-  if (!overlay || !card) return;
+  const form = document.getElementById('contactForm');
+  if (!overlay) return;
 
-  // Open modal from any .open-card-modal trigger
   document.querySelectorAll('.open-card-modal').forEach(function(link) {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      card.classList.remove('is-flipped');
       overlay.classList.add('is-open');
     });
   });
 
-  // Flip card on click
-  card.addEventListener('click', function() {
-    card.classList.toggle('is-flipped');
-  });
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      overlay.classList.remove('is-open');
+    });
+  }
 
-  // Close on X button
-  closeBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    overlay.classList.remove('is-open');
-  });
-
-  // Close on overlay click (outside card)
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) {
       overlay.classList.remove('is-open');
     }
   });
 
-  // Close on Escape
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
       overlay.classList.remove('is-open');
     }
   });
+
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = (data.get('name') || '').toString().trim();
+      const email = (data.get('email') || '').toString().trim();
+      const phone = (data.get('phone') || '').toString().trim();
+      const topic = (data.get('topic') || '').toString().trim();
+      const details = (data.get('details') || '').toString().trim();
+
+      const subject = topic ? `Reach out: ${topic}` : 'Reach out via rldev.co';
+      const bodyLines = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        phone ? `Phone: ${phone}` : null,
+        topic ? `Topic: ${topic}` : null,
+        '',
+        details ? 'Details:' : null,
+        details || null,
+      ].filter(function(l) { return l !== null; });
+
+      const href = 'mailto:rumeal@rldevelopit.com'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(bodyLines.join('\n'));
+
+      window.location.href = href;
+    });
+  }
 }

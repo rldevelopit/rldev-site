@@ -120,6 +120,13 @@ a { color: var(--text); text-decoration: none; }
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-direction: column;
+    gap: $sp-6;
+
+    @include desktop {
+      flex-direction: row;
+      gap: 0;
+    }
   }
 
   .nav-logo img {
@@ -584,7 +591,7 @@ a { color: var(--text); text-decoration: none; }
   }
 }
 
-// business card modal
+// contact modal
 .card-modal-overlay {
   position: fixed;
   inset: 0;
@@ -593,15 +600,15 @@ a { color: var(--text); text-decoration: none; }
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: $sp-16 $sp-5 $sp-5;
-
-  @include desktop {
-    align-items: center;
-    padding: $sp-5;
-  }
+  padding: $sp-8 $sp-4;
+  overflow-y: auto;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  @include desktop {
+    padding: $sp-10 $sp-5;
+  }
 
   &.is-open {
     opacity: 1;
@@ -609,240 +616,182 @@ a { color: var(--text); text-decoration: none; }
   }
 }
 
-.card-modal-scene {
-  perspective: 1200px;
+.contact-modal {
   position: relative;
+  width: 100%;
+  max-width: 640px;
+  background: var(--bg);
+  border-radius: $radius-lg;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: $sp-5;
+  margin: auto 0;
+
+  @include desktop {
+    padding: $sp-8 $sp-10;
+  }
 }
 
 .card-modal-close {
   position: absolute;
-  top: -36px;
-  right: -4px;
+  top: $sp-3;
+  right: $sp-3;
   background: none;
   border: none;
-  color: #fff;
-  font-size: 2rem;
+  color: var(--text);
+  font-size: 1.75rem;
   cursor: pointer;
   line-height: 1;
-  opacity: 0.8;
+  opacity: 0.6;
+  padding: 0 $sp-2;
 
   &:hover { opacity: 1; }
 }
 
-// 3.5 × 2 card ratio
-$card-w: 520px;
-$card-h: 297px;
-
-.business-card {
-  width: calc(100vw - 40px);
-  height: calc((100vw - 40px) / 1.75);
-  max-width: $card-w;
-  max-height: $card-h;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.6s ease;
-  cursor: pointer;
-
-  @include desktop {
-    width: $card-w;
-    height: $card-h;
-  }
-
-  &.is-flipped {
-    transform: rotateY(180deg);
-  }
+.contact-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $sp-4;
+  padding-right: $sp-6;
+  margin-bottom: $sp-6;
 }
 
-.card-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  border-radius: $radius-lg;
-  overflow: hidden;
-  background: var(--bg);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.card-hint {
-  position: absolute;
-  bottom: $sp-2;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.625rem;
-  color: var(--text-light);
-  opacity: 0.6;
-  letter-spacing: 0.04em;
-}
-
-.card-front {
-  transform: rotateY(180deg);
+.contact-header-logo {
   display: flex;
   align-items: center;
-}
+  gap: $sp-3;
 
-.card-front-content {
-  flex: 1;
-  padding: $sp-6 $sp-5;
+  img {
+    height: 36px;
+    width: auto;
 
-  @include desktop { padding: $sp-8 $sp-10; }
-
-  h2 {
-    font-family: $font-stack;
-    font-size: 1.5rem;
-    font-weight: 800;
-    line-height: 1.15;
-    color: var(--dark);
-
-    @include desktop { font-size: 2.25rem; }
+    @include desktop { height: 48px; }
   }
 }
 
-.card-front-pattern {
-  width: 45%;
-  height: 100%;
-  flex-shrink: 0;
-  background: url('../assets/business card/front-right-pattern.png') center / cover no-repeat;
-}
-
-.card-back {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: $sp-4;
-
-  @include desktop { padding: $sp-6 $sp-8; }
-}
-
-.card-back-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.card-back-logo img {
-  height: 28px;
-  width: auto;
-
-  @include desktop { height: 40px; }
-}
-
-.card-back-tagline {
+.contact-header-tagline {
   text-align: right;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--text);
   line-height: 1.5;
 
-  @include desktop { font-size: 0.8rem; }
+  @include desktop { font-size: 0.95rem; }
 
   span { display: block; }
   strong { display: block; }
 }
 
-// mobile only — center email
-.card-back-center {
+.contact-form {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
+  flex-direction: column;
+  gap: $sp-4;
 
-  @include desktop { display: none; }
+  @include desktop { gap: $sp-5; }
 }
 
-.card-email-link {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--accent);
-  text-decoration: underline;
-}
-
-.card-back-bottom {
+.form-row {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.card-back-name {
-  h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--dark);
-    margin-bottom: $sp-1;
-
-    @include desktop { font-size: 1.4rem; }
-  }
-
-  p {
-    font-size: 0.7rem;
-    color: var(--text);
-    margin: 0;
-    font-weight: 500;
-
-    @include desktop { font-size: 0.9rem; }
-  }
-}
-
-// desktop only — icon + email row
-.card-back-contact {
-  display: none;
   flex-direction: column;
   gap: $sp-2;
 
-  @include desktop { display: flex; }
-}
+  label,
+  .form-label {
+    font-size: $fs-card-body;
+    font-weight: 600;
+    color: var(--text);
 
-// mobile only — bottom-right headshot
-.card-back-headshot {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--accent-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  flex-shrink: 0;
-
-  img {
-    width: 60%;
-    height: auto;
+    @include desktop { font-size: $fs-card-body-dt; }
   }
 
-  @include desktop { display: none; }
+  .form-optional {
+    font-weight: 400;
+    color: var(--text-light);
+    font-size: 0.8em;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    font-family: $font-stack;
+    font-size: $fs-card-body;
+    color: var(--text);
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: $radius-md;
+    padding: $sp-3 $sp-4;
+    width: 100%;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    @include desktop { font-size: $fs-card-body-dt; }
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(200, 93, 71, 0.15);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 96px;
+    line-height: 1.5;
+  }
 }
 
-.contact-row {
+.form-options {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-2;
+}
+
+.form-option {
   display: flex;
   align-items: center;
-  gap: $sp-2;
-  font-size: 0.65rem;
+  gap: $sp-3;
+  padding: $sp-3 $sp-4;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-size: $fs-card-body;
   font-weight: 500;
   color: var(--text);
-  text-decoration: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
 
-  @include desktop { font-size: 0.85rem; }
+  @include desktop { font-size: $fs-card-body-dt; }
 
-  &:hover { color: var(--accent); }
-}
-
-.contact-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: $radius-sm;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 0.75rem;
-  flex-shrink: 0;
-
-  @include desktop {
-    width: 28px;
-    height: 28px;
-    font-size: 0.9rem;
+  &:hover {
+    border-color: var(--accent);
   }
 
-  &.accent-bg { background: var(--accent); }
-  &.olive-bg  { background: var(--olive); }
+  input[type="radio"] {
+    accent-color: var(--accent);
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  &:has(input:checked) {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+}
+
+.contact-modal-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.contact-submit {
+  font-size: $fs-btn;
+  padding: $sp-4 $sp-10;
+
+  @include desktop {
+    font-size: $fs-btn-dt;
+    padding: $sp-4 $sp-12;
+  }
 }
 
 // footer

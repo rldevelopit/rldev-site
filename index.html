@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RLDev</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="stylesheet" href="css/main.css?ver=1" />
+  <link rel="stylesheet" href="css/main.css?ver=3" />
 </head>
 
 <body>
@@ -102,58 +102,74 @@
     </div>
   </section>
 
-  <!-- business card modal -->
+  <!-- contact modal -->
   <div class="card-modal-overlay" id="cardModal">
-    <div class="card-modal-scene">
-      <div class="business-card" id="businessCard">
-
-        <!-- back face, shown first -->
-        <div class="card-face card-back">
-          <div class="card-back-top">
-            <div class="card-back-logo">
-              <img src="assets/icons/rl-logo.svg" alt="RL Logo" />
-            </div>
-            <div class="card-back-tagline">
-              <span>Technical Consulting and Services</span>
-              <strong>rldev.co</strong>
-            </div>
-          </div>
-          <div class="card-back-center">
-            <a href="mailto:rumeal@rldev.co" class="card-email-link">rumeal@rldev.co</a>
-          </div>
-          <div class="card-back-bottom">
-            <div class="card-back-name">
-              <h3>Rumeal Lovell</h3>
-              <p>Principal Consultant</p>
-            </div>
-            <div class="card-back-contact">
-              <a href="mailto:rumeal@rldev.co" class="contact-row">
-                <span class="contact-icon olive-bg">&#9993;</span>
-                rumeal@rldev.co
-              </a>
-            </div>
-            <div class="card-back-headshot">
-              <img src="assets/img/headshot.svg" alt="Rumeal Lovell" />
-            </div>
-          </div>
-          <span class="card-hint">Click to flip</span>
-        </div>
-
-        <!-- front face, shown after flip -->
-        <div class="card-face card-front">
-          <div class="card-front-content">
-            <h2>Rumeal<br>Lovell</h2>
-          </div>
-          <div class="card-front-pattern" aria-hidden="true"></div>
-          <span class="card-hint">Click to flip back</span>
-        </div>
-
-      </div>
+    <div class="contact-modal">
       <button class="card-modal-close" id="cardModalClose" aria-label="Close">&times;</button>
+
+      <div class="contact-modal-header">
+        <div class="contact-header-logo">
+          <img src="assets/icons/rl-logo.svg" alt="RL Logo" />
+        </div>
+        <div class="contact-header-tagline">
+          <span>Technical Consulting and Services</span>
+          <strong>rldev.co</strong>
+        </div>
+      </div>
+
+
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <label for="cf-name">Your Name</label>
+          <input type="text" id="cf-name" name="name" required />
+        </div>
+
+        <div class="form-row">
+          <label for="cf-email">Your Email</label>
+          <input type="email" id="cf-email" name="email" required />
+        </div>
+
+        <div class="form-row">
+          <label for="cf-phone">Your Phone Number <span class="form-optional">(optional)</span></label>
+          <input type="tel" id="cf-phone" name="phone" />
+        </div>
+
+        <div class="form-row">
+          <span class="form-label">How can I help?</span>
+          <div class="form-options">
+            <label class="form-option">
+              <input type="radio" name="topic" value="Let's make a website or app!" />
+              <span>Let's make a website or app!</span>
+            </label>
+            <label class="form-option">
+              <input type="radio" name="topic" value="How can I use AI to make life easier?" />
+              <span>How can I use AI to make life easier?</span>
+            </label>
+            <label class="form-option">
+              <input type="radio" name="topic" value="I'm not sure, let's just talk tech!" />
+              <span>I'm not sure, let's just talk tech!</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="cf-details">Any other details I should know?</label>
+          <textarea id="cf-details" name="details" rows="4"></textarea>
+        </div>
+      </form>
+
+      <div class="section-separator">
+        <img src="assets/icons/separator.svg" alt="" aria-hidden="true" />
+      </div>
+
+      <div class="contact-modal-footer">
+        <button type="submit" form="contactForm" class="btn btn-primary contact-submit">Reach Out &rarr;</button>
+      </div>
     </div>
   </div>
 
-  <script src="js/main.js?version=4"></script>
+  <script src="js/main.js?version=5"></script>
 </body>
 
 </html>
