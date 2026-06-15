@@ -128,11 +128,14 @@ function initCardModal() {
         if (res.ok && payload.ok) {
           form.reset();
           setStatus("Thanks — your message is on its way. I'll be in touch soon.", 'success');
+          if (window.turnstile) window.turnstile.reset();
         } else {
           setStatus(payload.error || 'Something went wrong. Please try again or email rumeal@rldevelopit.com.', 'error');
+          if (window.turnstile) window.turnstile.reset();
         }
       } catch (err) {
         setStatus('Network error. Please try again or email rumeal@rldevelopit.com.', 'error');
+        if (window.turnstile) window.turnstile.reset();
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;

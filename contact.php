@@ -15,6 +15,48 @@ if (trim((string)($_POST['website'] ?? '')) !== '') {
     exit;
 }
 
+// Cloudflare Turnstile verification.
+$configPath = __DIR__ . '/contact.config.php';
+if (!is_file($configPath)) {
+    http_response_code(500);
+    error_log('contact.php: missing contact.config.php');
+    echo json_encode(['ok' => false, 'error' => 'Server is not configured.']);
+    exit;
+}
+$config = require $configPath;
+
+$token = trim((string)($_POST['cf-turnstile-response'] ?? ''));
+if ($token === '') {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'error' => 'Please complete the spam check and try again.']);
+    exit;
+}
+
+$verifyRaw = @file_get_contents(
+    'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+    false,
+    stream_context_create([
+        'http' => [
+            'method'        => 'POST',
+            'header'        => "Content-Type: application/x-www-form-urlencoded\r\n",
+            'content'       => http_build_query([
+                'secret'   => $config['turnstile_secret'],
+                'response' => $token,
+                'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+            ]),
+            'timeout'       => 5,
+            'ignore_errors' => true,
+        ],
+    ])
+);
+$verify = json_decode((string)$verifyRaw, true);
+if (!is_array($verify) || empty($verify['success'])) {
+    error_log('contact.php: turnstile verify failed - ' . (string)$verifyRaw);
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'error' => 'Spam check failed. Please try again.']);
+    exit;
+}
+
 $name    = trim((string)($_POST['name']    ?? ''));
 $email   = trim((string)($_POST['email']   ?? ''));
 $phone   = trim((string)($_POST['phone']   ?? ''));

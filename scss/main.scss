@@ -801,6 +801,12 @@ a { color: var(--text); text-decoration: none; }
   }
 }
 
+.cf-turnstile {
+  display: flex;
+  justify-content: center;
+  min-height: 65px;
+}
+
 // Honeypot — keep in DOM for bots, hide from real users and assistive tech.
 .form-honeypot {
   position: absolute;
