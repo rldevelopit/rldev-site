@@ -781,7 +781,9 @@ a { color: var(--text); text-decoration: none; }
 
 .contact-modal-footer {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: $sp-3;
 }
 
 .contact-submit {
@@ -792,6 +794,35 @@ a { color: var(--text); text-decoration: none; }
     font-size: $fs-btn-dt;
     padding: $sp-4 $sp-12;
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Honeypot — keep in DOM for bots, hide from real users and assistive tech.
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-status {
+  margin: 0;
+  font-size: $fs-card-body;
+  text-align: center;
+  min-height: 1.2em;
+
+  @include desktop { font-size: $fs-card-body-dt; }
+
+  &:empty { display: none; }
+
+  &.is-success { color: var(--olive); font-weight: 600; }
+  &.is-error   { color: var(--accent); font-weight: 600; }
+  &.is-loading { color: var(--text-light); }
 }
 
 // footer

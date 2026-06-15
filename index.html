@@ -119,7 +119,12 @@
 
 
 
-      <form class="contact-form" id="contactForm">
+      <form class="contact-form" id="contactForm" action="contact.php" method="post" novalidate>
+        <div class="form-honeypot" aria-hidden="true">
+          <label for="cf-website">Website</label>
+          <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
         <div class="form-row">
           <label for="cf-name">Your Name</label>
           <input type="text" id="cf-name" name="name" required />
@@ -165,6 +170,7 @@
 
       <div class="contact-modal-footer">
         <button type="submit" form="contactForm" class="btn btn-primary contact-submit">Reach Out &rarr;</button>
+        <p class="form-status" id="contactStatus" role="status" aria-live="polite"></p>
       </div>
     </div>
   </div>

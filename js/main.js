@@ -95,31 +95,50 @@ function initCardModal() {
   });
 
   if (form) {
-    form.addEventListener('submit', function(e) {
+    const submitBtn = form.querySelector('.contact-submit')
+      || document.querySelector('button[form="contactForm"]');
+    const status = document.getElementById('contactStatus');
+    const endpoint = form.getAttribute('action') || 'contact.php';
+
+    function setStatus(text, state) {
+      if (!status) return;
+      status.textContent = text;
+      status.classList.remove('is-error', 'is-success', 'is-loading');
+      if (state) status.classList.add('is-' + state);
+    }
+
+    form.addEventListener('submit', async function(e) {
       e.preventDefault();
-      const data = new FormData(form);
-      const name = (data.get('name') || '').toString().trim();
-      const email = (data.get('email') || '').toString().trim();
-      const phone = (data.get('phone') || '').toString().trim();
-      const topic = (data.get('topic') || '').toString().trim();
-      const details = (data.get('details') || '').toString().trim();
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.dataset.originalLabel = submitBtn.dataset.originalLabel || submitBtn.innerHTML;
+        submitBtn.innerHTML = 'Sending…';
+      }
+      setStatus('', 'loading');
 
-      const subject = topic ? `Reach out: ${topic}` : 'Reach out via rldev.co';
-      const bodyLines = [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        phone ? `Phone: ${phone}` : null,
-        topic ? `Topic: ${topic}` : null,
-        '',
-        details ? 'Details:' : null,
-        details || null,
-      ].filter(function(l) { return l !== null; });
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' },
+        });
+        let payload = {};
+        try { payload = await res.json(); } catch (_) { /* non-JSON response */ }
 
-      const href = 'mailto:rumeal@rldevelopit.com'
-        + '?subject=' + encodeURIComponent(subject)
-        + '&body=' + encodeURIComponent(bodyLines.join('\n'));
-
-      window.location.href = href;
+        if (res.ok && payload.ok) {
+          form.reset();
+          setStatus("Thanks — your message is on its way. I'll be in touch soon.", 'success');
+        } else {
+          setStatus(payload.error || 'Something went wrong. Please try again or email rumeal@rldevelopit.com.', 'error');
+        }
+      } catch (err) {
+        setStatus('Network error. Please try again or email rumeal@rldevelopit.com.', 'error');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          if (submitBtn.dataset.originalLabel) submitBtn.innerHTML = submitBtn.dataset.originalLabel;
+        }
+      }
     });
   }
 }
