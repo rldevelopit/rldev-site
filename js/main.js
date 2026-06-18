@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+  initTheme();
   loadProjects();
   initModal();
   initMatrix();
@@ -15,7 +16,7 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// ---- Projects + drawer -------------------------------------
+// projects
 let projects = [];
 let activeProject = -1;
 
@@ -76,10 +77,8 @@ function openDrawer(index) {
   if (!p) return;
   activeProject = index;
 
-  // Fill drawer content.
   document.getElementById('drawerCat').textContent = p.cat;
   document.getElementById('drawerName').textContent = p.name;
-  // desc may contain trusted anchor markup (collaboration links) from our own JSON.
   document.getElementById('drawerDesc').innerHTML = p.desc;
 
   renderShot(document.getElementById('drawerShot'), p);
@@ -96,7 +95,6 @@ function openDrawer(index) {
     visit.hidden = true;
   }
 
-  // Active row styling.
   document.querySelectorAll('.project-row').forEach(function (row) {
     const isActive = Number(row.dataset.index) === index;
     row.classList.toggle('is-active', isActive);
@@ -121,12 +119,10 @@ function closeDrawer() {
     if (btn) btn.setAttribute('aria-expanded', 'false');
   });
   activeSlider = null;
-  // Drawer content remains for the duration of the slide-out (no re-render).
 }
 
-// ---- Drawer image slider -----------------------------------
+// slider
 function renderShot(shot, p) {
-  // `image` is an array of srcs; tolerate a bare string or missing value too.
   const imgs = Array.isArray(p.image) ? p.image : (p.image ? [p.image] : []);
 
   if (!imgs.length) {
@@ -177,7 +173,7 @@ function wireSlider(slider, count) {
   slider.querySelector('.shot-next').addEventListener('click', () => go(Number(slider.dataset.index) + 1));
   dots.forEach(d => d.addEventListener('click', () => go(Number(d.dataset.go))));
 
-  // Touch / pointer swipe.
+  // swipe
   let startX = null;
   track.addEventListener('pointerdown', (e) => { startX = e.clientX; });
   track.addEventListener('pointerup', (e) => {
@@ -187,13 +183,12 @@ function wireSlider(slider, count) {
     if (Math.abs(dx) > 40) go(Number(slider.dataset.index) + (dx < 0 ? 1 : -1));
   });
 
-  // Expose for keyboard nav while the drawer is open.
   activeSlider = { go, getIndex: () => Number(slider.dataset.index), count };
 }
 
 let activeSlider = null;
 
-// ---- Matrix block rain (modal left panel) ------------------
+// matrix rain
 let rafId = null;
 let resizeHandler = null;
 
@@ -206,8 +201,12 @@ function startMatrix() {
   const ctx = canvas.getContext('2d');
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const cell = 22;
-  const palette = ['#2c2c24', '#2c2c24', '#DC5A3C', '#829664'];
-  const pick = () => palette[Math.floor(Math.random() * palette.length)];
+  const cssVar = (name, fallback) => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+  const palette = () => ['#2c2c24', '#2c2c24', cssVar('--rain-accent', '#DC5A3C'), '#829664'];
+  const pick = () => { const p = palette(); return p[Math.floor(Math.random() * p.length)]; };
 
   let w = 0, h = 0, drops = null;
 
@@ -270,9 +269,9 @@ function stopMatrix() {
   if (resizeHandler) { window.removeEventListener('resize', resizeHandler); resizeHandler = null; }
 }
 
-function initMatrix() { /* canvas lifecycle is driven by modal open/close */ }
+function initMatrix() {}
 
-// ---- Contact modal -----------------------------------------
+// modal
 function initModal() {
   const overlay = document.getElementById('cardModal');
   const closeBtn = document.getElementById('cardModalClose');
@@ -311,7 +310,6 @@ function initModal() {
       }
       return;
     }
-    // Arrow keys page the drawer slider (only when the drawer, not the modal, is open).
     if (activeProject !== -1 && activeSlider && !overlay.classList.contains('is-open')) {
       if (e.key === 'ArrowLeft') activeSlider.go(activeSlider.getIndex() - 1);
       if (e.key === 'ArrowRight') activeSlider.go(activeSlider.getIndex() + 1);
@@ -349,7 +347,7 @@ function initContactForm(form) {
         headers: { 'Accept': 'application/json' },
       });
       let payload = {};
-      try { payload = await res.json(); } catch (_) { /* non-JSON response */ }
+      try { payload = await res.json(); } catch (_) {}
 
       if (res.ok && payload.ok) {
         form.reset();
@@ -369,4 +367,122 @@ function initContactForm(form) {
       }
     }
   });
+}
+
+// theme
+function initTheme() {
+  const root = document.documentElement;
+  const modeBtn = document.getElementById('themeMode');
+  const trigger = document.getElementById('accentTrigger');
+  const menu = document.getElementById('accentMenu');
+  const label = document.getElementById('accentLabel');
+  const swatch = document.getElementById('accentSwatch');
+
+  const NAMES = { red: 'Red', green: 'Green', black: 'Black', fun: 'Fun' };
+
+  function store(key, val) { try { localStorage.setItem(key, val); } catch (e) {} }
+
+  function setMode(mode) {
+    root.setAttribute('data-mode', mode);
+    if (modeBtn) modeBtn.setAttribute('aria-pressed', mode === 'dark' ? 'true' : 'false');
+    store('rl-mode', mode);
+  }
+  if (modeBtn) {
+    modeBtn.setAttribute('aria-pressed', root.getAttribute('data-mode') === 'dark' ? 'true' : 'false');
+    modeBtn.addEventListener('click', function () {
+      setMode(root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  function syncAccentUI(accent) {
+    if (label) label.textContent = NAMES[accent] || 'Red';
+    if (swatch) swatch.classList.toggle('swatch--fun', accent === 'fun');
+    if (menu) menu.querySelectorAll('.theme-opt').forEach(function (opt) {
+      opt.setAttribute('aria-selected', opt.dataset.accent === accent ? 'true' : 'false');
+    });
+  }
+
+  function setAccent(accent) {
+    root.setAttribute('data-accent', accent);
+    store('rl-accent', accent);
+    if (accent === 'fun') startFun(); else stopFun();
+    syncAccentUI(accent);
+  }
+
+  if (trigger && menu) {
+    const closeMenu = () => { menu.classList.remove('is-open'); trigger.setAttribute('aria-expanded', 'false'); };
+    const openMenu = () => { menu.classList.add('is-open'); trigger.setAttribute('aria-expanded', 'true'); };
+
+    trigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      menu.classList.contains('is-open') ? closeMenu() : openMenu();
+    });
+    menu.querySelectorAll('.theme-opt').forEach(function (opt) {
+      opt.addEventListener('click', function () { setAccent(opt.dataset.accent); closeMenu(); });
+    });
+    document.addEventListener('click', function (e) {
+      if (!menu.contains(e.target) && e.target !== trigger) closeMenu();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('is-open')) closeMenu();
+    });
+  }
+
+  const current = root.getAttribute('data-accent') || 'red';
+  syncAccentUI(current);
+  if (current === 'fun') startFun();
+}
+
+// fun accent
+let funRaf = null;
+
+function startFun() {
+  stopFun();
+  if (prefersReducedMotion) { applyHue(285); return; }
+  const degPerMs = 360 / 38000;
+  let prev = performance.now();
+  let hue = (prev / 38000 * 360) % 360;
+  const loop = (now) => {
+    hue = (hue + (now - prev) * degPerMs) % 360;
+    prev = now;
+    applyHue(hue);
+    funRaf = requestAnimationFrame(loop);
+  };
+  funRaf = requestAnimationFrame(loop);
+}
+
+function stopFun() {
+  if (funRaf) { cancelAnimationFrame(funRaf); funRaf = null; }
+  ['--accent', '--accent-strong', '--accent-rgb', '--rain-accent'].forEach(function (p) {
+    document.documentElement.style.removeProperty(p);
+  });
+}
+
+function applyHue(h) {
+  const root = document.documentElement;
+  const [r, g, b] = hslToRgb(h, 0.62, 0.52);
+  const [dr, dg, db] = hslToRgb(h, 0.62, 0.44);
+  root.style.setProperty('--accent', `rgb(${r}, ${g}, ${b})`);
+  root.style.setProperty('--accent-strong', `rgb(${dr}, ${dg}, ${db})`);
+  root.style.setProperty('--accent-rgb', `${r}, ${g}, ${b}`);
+  root.style.setProperty('--rain-accent', `rgb(${r}, ${g}, ${b})`);
+}
+
+function hslToRgb(h, s, l) {
+  h = (((h % 360) + 360) % 360) / 360;
+  const hue2rgb = (p, q, t) => {
+    if (t < 0) t += 1;
+    if (t > 1) t -= 1;
+    if (t < 1 / 6) return p + (q - p) * 6 * t;
+    if (t < 1 / 2) return q;
+    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+    return p;
+  };
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+  const p = 2 * l - q;
+  return [
+    Math.round(hue2rgb(p, q, h + 1 / 3) * 255),
+    Math.round(hue2rgb(p, q, h) * 255),
+    Math.round(hue2rgb(p, q, h - 1 / 3) * 255)
+  ];
 }

@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-mode="light" data-accent="red">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rumeal Lovell — Developer &amp; Technical Consultant</title>
+  <script>
+    (function () {
+      try {
+        var m = localStorage.getItem('rl-mode');
+        var a = localStorage.getItem('rl-accent');
+        if (m) document.documentElement.setAttribute('data-mode', m);
+        if (a) document.documentElement.setAttribute('data-accent', a);
+      } catch (e) {}
+    })();
+  </script>
+  <title>Rumeal Lovell | Developer &amp; Technical Consultant</title>
   <meta name="description"
-    content="Rumeal Lovell — developer and technical consultant building fast, accessible web and AI tools." />
+    content="Rumeal Lovell, developer and technical consultant building fast, accessible web and AI tools." />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,7 +43,7 @@
       <div class="bio rl-fade rl-fade-1">
         <p>I&rsquo;m Rumeal Lovell, a <span class="hl">developer and technical consultant</span> building fast,
           accessible web and AI tools for people and organizations doing meaningful work.</p>
-        <p>I take projects from <span class="hl">idea to shipped</span> &mdash; design, build, and the unglamorous parts
+        <p>I take projects from <span class="hl">idea to shipped</span>: design, build, and the unglamorous parts
           in between. WordPress, custom PHP, Python, and whatever the job needs.</p>
       </div>
 
@@ -161,7 +171,47 @@
     </div>
   </div>
 
-  <script src="js/main.js?version=9"></script>
+  <div class="theme-switch">
+    <button type="button" class="theme-mode" id="themeMode" aria-label="Toggle dark mode" aria-pressed="false">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2" />
+        <path d="M12 2.5v2.4M12 19.1v2.4M21.5 12h-2.4M4.9 12H2.5M18.7 5.3l-1.7 1.7M7 17l-1.7 1.7M18.7 18.7 17 17M7 7 5.3 5.3"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" stroke="currentColor" stroke-width="2"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+
+    <div class="theme-accent">
+      <button type="button" class="theme-accent-trigger" id="accentTrigger" aria-haspopup="listbox"
+        aria-expanded="false">
+        <span class="swatch" id="accentSwatch" aria-hidden="true"></span>
+        <span id="accentLabel">Red</span>
+        <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+      <div class="theme-menu" id="accentMenu" role="listbox" aria-label="Accent color">
+        <button type="button" class="theme-opt" role="option" data-accent="red">
+          <span class="swatch" style="background:#DC5A3C" aria-hidden="true"></span> Red
+        </button>
+        <button type="button" class="theme-opt" role="option" data-accent="green">
+          <span class="swatch" style="background:#829664" aria-hidden="true"></span> Green
+        </button>
+        <button type="button" class="theme-opt" role="option" data-accent="black">
+          <span class="swatch" style="background:#322D27" aria-hidden="true"></span> Black
+        </button>
+        <button type="button" class="theme-opt" role="option" data-accent="fun">
+          <span class="swatch swatch--fun" aria-hidden="true"></span> Fun
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js?version=10"></script>
 </body>
 
 </html>
