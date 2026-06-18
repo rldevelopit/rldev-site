@@ -1,50 +1,56 @@
 [
   {
     "name": "Jacob Lawrence",
+    "cat": "Arts · Archive",
+    "tagline": "WordPress · PHP · SASS",
+    "tech": ["WordPress", "PHP", "SASS", "JavaScript", "Bulma", "ACF"],
+    "desc": "An informational resource for the artist Jacob Lawrence, built on WordPress with a custom photo-gallery plugin. A rewarding deep dive into the lives of the artists, tying Lawrence's art into the content so the site feels like an art piece itself. A collaboration with <a href=\"https://montanab.com/?src=rumeal\" target=\"_blank\" rel=\"noopener\">Montana Banana</a>.",
     "url": "https://jacobandgwenlawrence.org/",
-    "description": "An informational resource for the artist Jacob Lawrence, built on WordPress with a custom photo gallery plugin. This project was a rewarding deep dive into the lives of the artists, tying in Lawrence's art with the content to make the site feel like an art piece itself. A collaboration with <a href='https://montanab.com/?src=rumeal'>Montana Banana</a>.",
-    "category": "website",
-    "images": ["/assets/projects/jacobandgwen.png"],
-    "tech": ["php", "html", "wordpress", "sass", "javascript", "bulma", "advanced custom fields"]
+    "image": ["/assets/projects/jacobandgwen.png"]
   },
   {
     "name": "Progress Virginia Education Fund",
+    "cat": "Nonprofit",
+    "tagline": "WordPress · Bootstrap · PHP",
+    "tech": ["WordPress", "Bootstrap", "PHP", "CSS"],
+    "desc": "A Virginia nonprofit, designed and shipped on WordPress within a three-day turnaround due to a tight timeline.",
     "url": "https://pvef.org/",
-    "description": "A nonprofit based in Virginia. Built on WordPress within a 3-day turnaround due to a tight timeline.",
-    "category": "website",
-    "images": ["/assets/projects/pvef.png"],
-    "tech": ["php", "html", "wordpress", "bootstrap", "css"]
+    "image": ["/assets/projects/pvef.png"]
   },
   {
     "name": "Advocate Accounting",
+    "cat": "Small Business",
+    "tagline": "WordPress · Stripe · Tailwind",
+    "tech": ["WordPress", "PHP", "Tailwind", "Stripe API", "Bunny CDN"],
+    "desc": "A modernized, accessible redesign with an integrated shopping cart and training portal powered by Stripe.",
     "url": "https://advocate-accounting.com",
-    "description": "Revamped website focused on modernizing the design and improving accessibility. Includes an integrated shopping cart and training portal powered by Stripe.",
-    "category": "website",
-    "images": ["/assets/projects/aa.png"],
-    "tech": ["php", "html", "wordpress", "tailwind", "css", "stripe api", "bunny cdn"]
+    "image": ["/assets/projects/aa.png", "/assets/projects/aa2.png"]
   },
   {
-    "name": "Progress Alliance Technical Security Assessment",
+    "name": "Progress Alliance",
+    "cat": "Security Audit",
+    "tagline": "Python · Security",
+    "tech": ["Python", "IT Security", "Inventory"],
+    "desc": "A comprehensive technical security assessment — stakeholder interviews, penetration testing, and a detailed report with actionable remediation steps.",
     "url": "",
-    "description": "Conducted a comprehensive technical security assessment for Progress Alliance. This included stakeholder interviews, penetration testing, and a detailed report with actionable remediation steps.",
-    "category": "tech",
-    "images": ["/assets/projects/PA_Logo_Color+transparent+small.webp"],
-    "tech": ["python", "information technology security", "inventory"]
+    "image": ["/assets/projects/progressalliance.webp"]
   },
   {
     "name": "WCA Data Hub Portal",
+    "cat": "Data Tooling",
+    "tagline": "PHP · MySQL · JavaScript",
+    "tech": ["PHP", "JavaScript", "WordPress", "MySQL", "Google Drive"],
+    "desc": "A custom data hub for Washington Community Alliance partners to submit support requests. Uses WordPress for registration and membership, backed by a custom MySQL database and Google Drive integrations.",
     "url": "",
-    "description": "A custom-built data hub for Washington Community Alliance partners to submit support requests. Uses WordPress for user registration and membership management, backed by a custom MySQL database system and Google Drive integrations.",
-    "category": "tech",
-    "images": ["/assets/projects/wcadatahub.png"],
-    "tech": ["php", "javascript", "wordpress", "mysql", "database management", "google drive"]
+    "image": ["/assets/projects/wcadatahub.png", "/assets/projects/wcadatahub2.png"]
   },
   {
     "name": "Sit N Stay",
+    "cat": "Petcare",
+    "tagline": "WordPress · SASS · JS",
+    "tech": ["WordPress", "PHP", "SASS", "JavaScript", "Bulma", "ACF"],
+    "desc": "A full-service petcare company in Burien, Washington. Features playful hover interactions, paw-print call-to-action elements, and a responsive color mosaic on the services page. A collaboration with <a href=\"https://montanab.com/?src=rumeal\" target=\"_blank\" rel=\"noopener\">Montana Banana</a>.",
     "url": "https://sitnstaypets.com/",
-    "description": "A full-service petcare company in Burien, Washington. Features creative hover events over the navigation, paw-print call-to-action elements, and a responsive color mosaic on the services page. A collaboration with <a href='https://montanab.com/?src=rumeal'>Montana Banana</a>.",
-    "category": "website",
-    "images": ["/assets/projects/sitnstay1.png"],
-    "tech": ["php", "html", "wordpress", "sass", "javascript", "bulma", "advanced custom fields"]
+    "image": ["/assets/projects/sitnstay1.png", "/assets/projects/sitnstay2.png", "/assets/projects/sitnstay3.png"]
   }
 ]

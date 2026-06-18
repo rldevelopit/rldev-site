@@ -1,187 +1,167 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="red">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RLDev</title>
+  <title>Rumeal Lovell — Developer &amp; Technical Consultant</title>
+  <meta name="description"
+    content="Rumeal Lovell — developer and technical consultant building fast, accessible web and AI tools." />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="stylesheet" href="css/main.css?ver=6" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css?ver=7" />
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
 
-  <nav class="site-nav">
-    <div class="container nav-inner">
-      <a href="/" class="nav-logo" aria-label="Home">
-        <img src="assets/icons/rl-logo.svg" alt="Rumeal Lovell Logo" />
+  <main class="page">
+
+    <header class="site-header rl-fade">
+      <div class="logo-lockup">
+        <img class="logo-mark" src="assets/icons/rl-logo.svg" alt="Rumeal Lovell" />
+      </div>
+      <img class="headshot" src="assets/img/headshot.svg" alt="Rumeal Lovell" />
+    </header>
+
+    <div class="body-grid">
+      <div class="bio rl-fade rl-fade-1">
+        <p>I&rsquo;m Rumeal Lovell, a <span class="hl">developer and technical consultant</span> building fast,
+          accessible web and AI tools for people and organizations doing meaningful work.</p>
+        <p>I take projects from <span class="hl">idea to shipped</span> &mdash; design, build, and the unglamorous parts
+          in between. WordPress, custom PHP, Python, and whatever the job needs.</p>
+      </div>
+
+      <section class="projects rl-fade rl-fade-2" aria-labelledby="projects-heading">
+        <h2 id="projects-heading" class="projects-heading">Featured Projects</h2>
+        <div class="project-list" id="projectList"></div>
+        <div class="project-list-end" aria-hidden="true"></div>
+      </section>
+    </div>
+
+    <footer class="reach-out rl-fade rl-fade-3">
+      <img class="reach-out-sep" src="assets/icons/separator.svg" alt="" aria-hidden="true" />
+      <button type="button" class="cta-btn open-card-modal">
+        <svg class="cta-icon" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M22 2 11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M22 2 15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        Reach out
+      </button>
+    </footer>
+
+  </main>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawerName" role="dialog" aria-modal="true">
+    <div class="drawer-inner">
+      <div class="drawer-head">
+        <div class="drawer-titles">
+          <div class="drawer-cat" id="drawerCat"></div>
+          <h3 class="drawer-name" id="drawerName"></h3>
+        </div>
+        <button type="button" class="drawer-close icon-close" id="drawerClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="drawer-shot" id="drawerShot"></div>
+      <p class="drawer-desc" id="drawerDesc"></p>
+      <div class="drawer-tags" id="drawerTags"></div>
+      <a class="drawer-visit" id="drawerVisit" href="#" target="_blank" rel="noopener" hidden>
+        Visit site
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
       </a>
-      <div class="nav-links">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact" class="btn btn-outline-primary open-card-modal">Contact</a>
-      </div>
     </div>
-  </nav>
+  </aside>
 
-  <header class="hero">
-    <div class="container hero-inner">
-      <div class="hero-content">
-        <p class="hero-text">
-          I'm Rumeal, a consultant on all things tech ready to elevate your online presence.
-        </p>
-        <p class="hero-cta"><strong>Let's create something amazing together!</strong></p>
+  <div class="modal-overlay" id="cardModal">
+    <div class="modal-card" id="modalCard" role="dialog" aria-modal="true" aria-label="Reach out">
+
+      <div class="modal-rain">
+        <canvas id="rainCanvas"></canvas>
+        <div class="modal-rain-vignette" aria-hidden="true"></div>
       </div>
-      <div class="hero-headshot">
-        <div class="headshot-circle">
-          <img src="assets/img/headshot.svg" alt="Rumeal Lovell" />
-        </div>
-      </div>
-    </div>
-  </header>
 
-  <div class="section-separator">
-    <img src="assets/icons/separator.svg" alt="" aria-hidden="true" />
-  </div>
+      <div class="modal-body">
+        <button type="button" class="modal-close icon-close" id="cardModalClose" aria-label="Close">&times;</button>
 
-  <section id="work" class="projects">
-    <div class="container">
-      <h2 class="section-title">Featured Projects</h2>
-      <p class="section-subtitle">Recent work showcasing modern web solutions across different industries</p>
-
-      <div class="project-grid"></div>
-    </div>
-  </section>
-
-  <div class="section-separator">
-    <img src="assets/icons/separator.svg" alt="" aria-hidden="true" />
-  </div>
-
-  <section id="about" class="services">
-    <div class="container">
-      <h2 class="section-title">Services</h2>
-      <p class="section-subtitle">· Comprehensive web consulting services, tailored to your business</p>
-
-      <div class="services-grid">
-
-        <div class="service-card">
-          <div class="service-icon">
-            <img src="assets/icons/icon_web.svg" alt="" />
+        <div class="modal-head">
+          <div class="modal-brand">
+            <img src="assets/img/rl-icon-colour.png" alt="" aria-hidden="true" />
+            <span class="modal-wordmark">Rumeal<br />Lovell</span>
           </div>
-          <h3>Web Development</h3>
-          <p>Custom build websites, using HTML, PHP, and frameworks, built with performance, accessibility, and responsiveness in mind.</p>
-        </div>
-
-        <div class="service-card">
-          <div class="service-icon">
-            <img src="assets/icons/icon_ai.svg" alt="" />
+          <div class="modal-tagline">
+            <span>Technical Consulting<br />&amp; Services</span>
+            <strong>rldev.co</strong>
           </div>
-          <h3>AI & Automation</h3>
-          <p>Exploring real ways AI and automation can save time and make life easier.</p>
         </div>
 
-        <div class="service-card">
-          <div class="service-icon">
-            <img src="assets/icons/icon_tech.png" alt="" />
-          </div>
-          <h3>Technical Consulting</h3>
-          <p>Not sure what you need? Let's talk and figure it out together.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="cta">
-    <div class="container cta-inner">
-      <h2>Let's Work Together</h2>
-      <p>Have a project in mind? I'd love to hear about it. Let's discuss how we can bring your vision to life.</p>
-      <div class="cta-buttons">
-        <a href="#" class="btn btn-primary open-card-modal">Reach Out</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- contact modal -->
-  <div class="card-modal-overlay" id="cardModal">
-    <div class="contact-modal">
-      <button class="card-modal-close" id="cardModalClose" aria-label="Close">&times;</button>
-
-      <div class="contact-modal-header">
-        <div class="contact-header-logo">
-          <img src="assets/icons/rl-logo.svg" alt="RL Logo" />
-        </div>
-        <div class="contact-header-tagline">
-          <span>Technical Consulting and Services</span>
-          <strong>rldev.co</strong>
-        </div>
-      </div>
-
-      <div>
         <p class="form-status" id="contactStatus" role="status" aria-live="polite"></p>
-      </div>
 
+        <form class="contact-form" id="contactForm" action="contact.php" method="post" novalidate>
+          <div class="form-honeypot" aria-hidden="true">
+            <label for="cf-website">Website</label>
+            <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
 
-
-      <form class="contact-form" id="contactForm" action="contact.php" method="post" novalidate>
-        <div class="form-honeypot" aria-hidden="true">
-          <label for="cf-website">Website</label>
-          <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" />
-        </div>
-
-        <div class="form-row">
-          <label for="cf-name">Your Name</label>
-          <input type="text" id="cf-name" name="name" required />
-        </div>
-
-        <div class="form-row">
-          <label for="cf-email">Your Email</label>
-          <input type="email" id="cf-email" name="email" required />
-        </div>
-
-        <div class="form-row">
-          <label for="cf-phone">Your Phone Number <span class="form-optional">(optional)</span></label>
-          <input type="tel" id="cf-phone" name="phone" />
-        </div>
-
-        <div class="form-row">
-          <span class="form-label">How can I help?</span>
-          <div class="form-options">
-            <label class="form-option">
-              <input type="radio" name="topic" value="Let's make a website or app!" />
-              <span>Let's make a website or app!</span>
+          <div class="field-grid">
+            <label class="field">
+              <span class="field-label">Your Name</span>
+              <input type="text" name="name" required />
             </label>
-            <label class="form-option">
-              <input type="radio" name="topic" value="How can I use AI to make life easier?" />
-              <span>How can I use AI to make life easier?</span>
-            </label>
-            <label class="form-option">
-              <input type="radio" name="topic" value="I'm not sure, let's just talk tech!" />
-              <span>I'm not sure, let's just talk tech!</span>
+            <label class="field">
+              <span class="field-label">Your Email</span>
+              <input type="email" name="email" required />
             </label>
           </div>
-        </div>
 
-        <div class="form-row">
-          <label for="cf-details">Any other details I should know?</label>
-          <textarea id="cf-details" name="details" rows="4"></textarea>
-        </div>
+          <label class="field">
+            <span class="field-label">Your Phone Number <span class="field-optional">(optional)</span></span>
+            <input type="tel" name="phone" />
+          </label>
 
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAADk3RUqjwPMuwZz4" data-theme="light"></div>
-      </form>
+          <div class="field">
+            <span class="field-label">How can I help?</span>
+            <div class="help-options">
+              <label class="help-option">
+                <input type="radio" name="topic" value="Let's make a website or app!" />
+                <span class="help-radio" aria-hidden="true"></span>
+                <span class="help-text">Let's make a website or app!</span>
+              </label>
+              <label class="help-option">
+                <input type="radio" name="topic" value="How can I use AI to make life easier?" />
+                <span class="help-radio" aria-hidden="true"></span>
+                <span class="help-text">How can I use AI to make life easier?</span>
+              </label>
+              <label class="help-option">
+                <input type="radio" name="topic" value="I'm not sure, let's just talk tech!" />
+                <span class="help-radio" aria-hidden="true"></span>
+                <span class="help-text">I'm not sure, let's just talk tech!</span>
+              </label>
+            </div>
+          </div>
 
-      <div class="section-separator">
-        <img src="assets/icons/separator.svg" alt="" aria-hidden="true" />
-      </div>
+          <label class="field">
+            <span class="field-label">Any other details I should know?</span>
+            <textarea name="details" rows="2"></textarea>
+          </label>
 
-      <div class="contact-modal-footer">
-        <button type="submit" form="contactForm" class="btn btn-primary contact-submit">Reach Out &rarr;</button>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADk3RUqjwPMuwZz4" data-theme="light"></div>
+
+          <button type="submit" class="submit-btn">Send message</button>
+        </form>
       </div>
     </div>
   </div>
 
-  <script src="js/main.js?version=8"></script>
+  <script src="js/main.js?version=9"></script>
 </body>
 
 </html>

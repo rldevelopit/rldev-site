@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #F9F4ED; font-family: 'Roboto', system-ui, sans-serif; color: #5b564c; -webkit-font-smoothing: antialiased; }
+  ::selection { background: #DC5A3C; color: #fff; }
+  @keyframes rl-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes rl-slide-in { from { opacity: 0; transform: translateX(48px); } to { opacity: 1; transform: none; } }
+</style>
+</helmet>
+<div style="position:relative;min-height:100vh;max-width:1180px;margin:0 auto;padding:clamp(28px,5vw,72px) clamp(22px,5vw,72px);overflow:hidden;">
+
+  <!-- corner pattern -->
+  <img src="assets/pattern-colour.png" alt="" style="position:absolute;bottom:0;left:0;width:clamp(120px,16vw,200px);height:auto;opacity:0.5;pointer-events:none;z-index:0;" />
+
+  <!-- TOP: logo lockup left, face right -->
+  <header style="position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:clamp(40px,6vw,80px);">
+    <div style="display:flex;align-items:center;gap:14px;animation:rl-fade 1s ease both;">
+      <img src="assets/rl-icon-colour.png" alt="RL" style="width:clamp(52px,6.5vw,72px);height:auto;display:block;flex:none;" />
+      <span style="font-family:'Poppins',sans-serif;font-weight:600;font-size:clamp(20px,2.6vw,28px);letter-spacing:0.02em;text-transform:uppercase;color:#323228;line-height:1;">Rumeal&nbsp;Lovell</span>
+    </div>
+    <img src="assets/headshot.png" alt="Rumeal Lovell" style="width:clamp(82px,9.5vw,116px);height:auto;display:block;flex:none;margin-top:18px;" />
+  </header>
+
+  <!-- BODY: bio left, projects right -->
+  <div style="position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,0.82fr) minmax(0,1.18fr);gap:clamp(32px,6vw,88px);align-items:start;">
+
+    <!-- LEFT: bio -->
+    <div style="font-size:clamp(20px,1.9vw,23px);line-height:1.85;color:#4a463d;animation:rl-fade 1s ease 0.1s both;">
+      <p style="margin:0 0 1.1em;">I&rsquo;m Rumeal Lovell, a <span style="color:#323228;font-weight:600;border-bottom:5px solid #DC5A3C;box-shadow:0 8px 18px -6px rgba(220,90,60,0.55);">developer and technical consultant</span> building fast, accessible web and AI tools for people and organizations doing meaningful work.</p>
+      <p style="margin:0;">I take projects from <span style="color:#323228;font-weight:600;border-bottom:5px solid #DC5A3C;box-shadow:0 8px 18px -6px rgba(220,90,60,0.55);">idea to shipped</span> &mdash; design, build, and the unglamorous parts in between. WordPress, custom PHP, Python, and whatever the job needs.</p>
+    </div>
+
+    <!-- RIGHT: projects accordion -->
+    <div style="position:relative;z-index:1;animation:rl-fade 1s ease 0.2s both;">
+      <h2 style="font-family:'Poppins',sans-serif;font-weight:600;font-size:clamp(15px,1.6vw,18px);letter-spacing:0.12em;text-transform:uppercase;color:#a89f8d;margin:0 0 6px;">Featured Projects</h2>
+      <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
+        <div style="border-top:1px solid #d8d1c4;">
+          <button onClick="{{ p.toggle }}" style="all:unset;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:18px;width:100%;padding:16px 4px;box-sizing:border-box;">
+            <span style="display:flex;align-items:baseline;gap:14px;min-width:0;">
+              <span style="font-family:'Poppins',sans-serif;font-weight:600;font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:{{ p.catColor }};flex:none;width:96px;transition:color .25s;">{{ p.cat }}</span>
+              <span style="font-family:'Poppins',sans-serif;font-weight:600;font-size:20px;color:{{ p.titleColor }};transition:color .25s;" style-hover="color:#DC5A3C;">{{ p.name }}</span>
+            </span>
+            <span style="font-family:'Roboto',sans-serif;font-size:12.5px;letter-spacing:0.02em;color:{{ p.tagColor }};text-align:right;transition:color .25s;flex:none;">{{ p.tagline }}</span>
+          </button>
+        </div>
+      </sc-for>
+      <div style="border-top:1px solid #d8d1c4;"></div>
+    </div>
+
+  </div>
+
+  <!-- REACH OUT -->
+  <footer style="position:relative;z-index:1;margin-top:clamp(56px,8vw,104px);padding-top:clamp(32px,4vw,48px);border-top:1px solid #d8d1c4;display:flex;flex-direction:column;align-items:center;gap:20px;animation:rl-fade 1s ease 0.3s both;">
+    <button onClick="{{ openModal }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:11px;font-family:'Poppins',sans-serif;font-weight:600;font-size:clamp(16px,1.9vw,19px);color:#fff;background:#DC5A3C;border-radius:999px;padding:13px 30px;box-shadow:0 10px 26px rgba(220,90,60,0.3);transition:transform .2s,box-shadow .2s,background .2s;" style-hover="transform:translateY(-2px);background:#C24A2F;box-shadow:0 14px 32px rgba(220,90,60,0.4);">
+      <svg width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" style="display:block;"><path d="M22 2 11 13" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2 15 22l-4-9-9-4 20-7Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Reach out
+    </button>
+    <a href="mailto:hello@rldev.co" style="font-family:'Roboto',sans-serif;font-size:17px;color:#DC5A3C;text-decoration:none;border-bottom:1.5px solid rgba(220,90,60,0.35);padding-bottom:2px;">hello@rldev.co</a>
+  </footer>
+
+  <!-- PROJECT DRAWER (slides in from right) -->
+  <div onClick="{{ closeDrawer }}" style="position:fixed;inset:0;z-index:140;background:rgba(40,40,32,0.30);backdrop-filter:blur(2px);opacity:{{ drawerOverlayOpacity }};pointer-events:{{ drawerPointer }};transition:opacity .4s ease;"></div>
+  <aside style="position:fixed;top:0;right:0;height:100vh;width:min(480px,94vw);z-index:150;background:#F9F4ED;box-shadow:-24px 0 70px rgba(0,0,0,0.22);transform:{{ drawerTransform }};transition:transform .55s cubic-bezier(.5,0,.1,1);">
+    <div style="display:flex;flex-direction:column;gap:22px;height:100%;box-sizing:border-box;padding:clamp(30px,4vw,46px);overflow-y:auto;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+        <div style="min-width:0;">
+          <div style="font-family:'Poppins',sans-serif;font-weight:600;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#DC5A3C;margin-bottom:8px;">{{ active.cat }}</div>
+          <h3 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(26px,3.4vw,34px);line-height:1.05;letter-spacing:-0.02em;color:#323228;margin:0;">{{ active.name }}</h3>
+        </div>
+        <button onClick="{{ closeDrawer }}" aria-label="Close" style="all:unset;cursor:pointer;flex:none;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1;color:#857e70;transition:background .2s,color .2s;" style-hover="background:#efe7da;color:#323228;">&times;</button>
+      </div>
+      <div style="aspect-ratio:4/3;border-radius:12px;background:repeating-linear-gradient(135deg,#ece5d8 0 11px,#e4ddcf 11px 22px);display:flex;align-items:center;justify-content:center;border:1px solid #e2dacc;">
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#a89f8d;">screenshot &mdash; {{ active.name }}</span>
+      </div>
+      <p style="margin:0;font-size:16.5px;line-height:1.6;color:#4a463d;">{{ active.snippet }}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <sc-for list="{{ active.tags }}" as="t" hint-placeholder-count="3">
+          <span style="font-family:'Roboto',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.02em;color:#857e70;background:#fff;border:1px solid #e2dacc;border-radius:999px;padding:6px 13px;">{{ t }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </aside>
+
+  <!-- REACH OUT MODAL -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:200;background:rgba(40,40,32,0.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:24px;animation:rl-fade .25s ease both;">
+      <div onClick="{{ stop }}" style="position:relative;display:flex;width:min(1040px,96vw);max-height:92vh;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,0.38);">
+
+        <!-- LEFT 4: dark matrix -->
+        <div style="flex:4 1 0;min-width:0;position:relative;background:#14140f;overflow:hidden;display:block;">
+          <canvas ref="{{ matrixRef }}" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></canvas>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,20,15,0.55) 0%,rgba(20,20,15,0) 22%,rgba(20,20,15,0) 78%,rgba(20,20,15,0.55) 100%);pointer-events:none;"></div>
+        </div>
+
+        <!-- RIGHT 8: form -->
+        <div style="flex:8 1 0;min-width:0;padding:clamp(26px,3.2vw,40px);display:flex;flex-direction:column;gap:14px;overflow:hidden;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+            <div style="display:flex;align-items:center;gap:11px;">
+              <img src="assets/rl-icon-colour.png" alt="RL" style="width:42px;height:auto;display:block;" />
+              <span style="font-family:'Poppins',sans-serif;font-weight:600;font-size:18px;line-height:1.05;text-transform:uppercase;letter-spacing:0.02em;color:#323228;">Rumeal<br/>Lovell</span>
+            </div>
+            <div style="text-align:right;padding-right:34px;">
+              <div style="font-family:'Roboto',sans-serif;font-size:12px;color:#857e70;line-height:1.3;">Technical Consulting<br/>&amp; Services</div>
+              <div style="font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;color:#DC5A3C;margin-top:2px;">rldev.co</div>
+            </div>
+          </div>
+
+          <button onClick="{{ closeModal }}" aria-label="Close" style="all:unset;cursor:pointer;position:absolute;top:16px;right:18px;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#857e70;font-size:20px;line-height:1;transition:background .2s,color .2s;" style-hover="background:#F4EEE4;color:#323228;">&times;</button>
+
+          <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:12px;min-height:0;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <label style="display:flex;flex-direction:column;gap:5px;">
+                <span style="font-family:'Poppins',sans-serif;font-weight:500;font-size:13px;color:#323228;">Your Name</span>
+                <input type="text" style="font-family:'Roboto',sans-serif;font-size:14px;color:#323228;background:#F9F4ED;border:1px solid #e2daccc;border:1px solid #e2dacc;border-radius:9px;padding:11px 13px;outline:none;transition:border-color .2s,box-shadow .2s;" style-focus="border-color:#DC5A3C;box-shadow:0 0 0 3px rgba(220,90,60,0.15);" />
+              </label>
+              <label style="display:flex;flex-direction:column;gap:5px;">
+                <span style="font-family:'Poppins',sans-serif;font-weight:500;font-size:13px;color:#323228;">Your Email</span>
+                <input type="email" style="font-family:'Roboto',sans-serif;font-size:14px;color:#323228;background:#F9F4ED;border:1px solid #e2dacc;border-radius:9px;padding:11px 13px;outline:none;transition:border-color .2s,box-shadow .2s;" style-focus="border-color:#DC5A3C;box-shadow:0 0 0 3px rgba(220,90,60,0.15);" />
+              </label>
+            </div>
+
+            <label style="display:flex;flex-direction:column;gap:5px;">
+              <span style="font-family:'Poppins',sans-serif;font-weight:500;font-size:13px;color:#323228;">Your Phone Number <span style="color:#a89f8d;font-weight:400;">(optional)</span></span>
+              <input type="tel" style="font-family:'Roboto',sans-serif;font-size:14px;color:#323228;background:#F9F4ED;border:1px solid #e2dacc;border-radius:9px;padding:11px 13px;outline:none;transition:border-color .2s,box-shadow .2s;" style-focus="border-color:#DC5A3C;box-shadow:0 0 0 3px rgba(220,90,60,0.15);" />
+            </label>
+
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <span style="font-family:'Poppins',sans-serif;font-weight:500;font-size:13px;color:#323228;">How can I help?</span>
+              <sc-for list="{{ helpOptions }}" as="h" hint-placeholder-count="3">
+                <button type="button" onClick="{{ h.select }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:11px;width:100%;padding:10px 13px;border:1.5px solid {{ h.border }};border-radius:9px;background:{{ h.bg }};transition:border-color .2s,background .2s;">
+                  <span style="width:16px;height:16px;border-radius:50%;border:2px solid {{ h.dot }};display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:7px;height:7px;border-radius:50%;background:{{ h.fill }};"></span></span>
+                  <span style="font-family:'Roboto',sans-serif;font-size:14px;color:#323228;">{{ h.label }}</span>
+                </button>
+              </sc-for>
+            </div>
+
+            <label style="display:flex;flex-direction:column;gap:5px;">
+              <span style="font-family:'Poppins',sans-serif;font-weight:500;font-size:13px;color:#323228;">Any other details I should know?</span>
+              <textarea rows="2" style="font-family:'Roboto',sans-serif;font-size:14px;color:#323228;background:#F9F4ED;border:1px solid #e2dacc;border-radius:9px;padding:11px 13px;outline:none;resize:none;transition:border-color .2s,box-shadow .2s;" style-focus="border-color:#DC5A3C;box-shadow:0 0 0 3px rgba(220,90,60,0.15);"></textarea>
+            </label>
+
+            <button type="submit" style="all:unset;box-sizing:border-box;cursor:pointer;text-align:center;margin-top:2px;font-family:'Poppins',sans-serif;font-weight:600;font-size:16px;color:#fff;background:#DC5A3C;border-radius:999px;padding:14px;transition:background .2s;" style-hover="background:#C24A2F;">Send message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:1000}}">
+class Component extends DCLogic {
+  state = { open: -1, modalOpen: false, help: -1 };
+
+  componentWillUnmount() { this.stopMatrix(); }
+
+  startMatrix(node) {
+    this.stopMatrix();
+    const c = node;
+    const ctx = c.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const cell = 22;
+    const palette = ['#2c2c24', '#2c2c24', '#DC5A3C', '#829664'];
+    const pick = () => palette[Math.floor(Math.random() * palette.length)];
+    let w = 0, h = 0, drops = null;
+    const ensure = () => {
+      const r = c.getBoundingClientRect();
+      if (r.width < 2 || r.height < 2) return false;
+      w = r.width; h = r.height;
+      c.width = Math.round(w * dpr);
+      c.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const cols = Math.max(1, Math.ceil(w / cell));
+      if (!drops || drops.length !== cols) {
+        drops = Array.from({ length: cols }, () => ({
+          row: -Math.floor(Math.random() * (h / cell) + 2),
+          color: pick(),
+          stepMs: 80 + Math.random() * 120,
+          acc: 0
+        }));
+      }
+      ctx.fillStyle = '#14140f';
+      ctx.fillRect(0, 0, w, h);
+      return true;
+    };
+    this._matrixResize = () => ensure();
+    window.addEventListener('resize', this._matrixResize);
+
+    let prev = performance.now();
+    const tick = (now) => {
+      if (w < 2) {
+        if (!ensure()) { this._raf = requestAnimationFrame(tick); return; }
+      }
+      const dt = Math.min(now - prev, 60); prev = now;
+      ctx.fillStyle = 'rgba(20,20,15,0.10)';
+      ctx.fillRect(0, 0, w, h);
+      ctx.globalAlpha = 0.82;
+      for (let i = 0; i < drops.length; i++) {
+        const d = drops[i];
+        d.acc += dt;
+        if (d.acc >= d.stepMs) {
+          d.acc = 0;
+          d.row++;
+          if (d.row * cell > h + cell) {
+            d.row = -Math.floor(Math.random() * 14 + 2);
+            d.color = pick();
+            d.stepMs = 80 + Math.random() * 120;
+          }
+        }
+        ctx.fillStyle = d.color;
+        ctx.fillRect(i * cell + 2, d.row * cell + 2, cell - 4, cell - 4);
+      }
+      ctx.globalAlpha = 1;
+      this._raf = requestAnimationFrame(tick);
+    };
+    this._raf = requestAnimationFrame(tick);
+  }
+
+  stopMatrix() {
+    if (this._raf) { cancelAnimationFrame(this._raf); this._raf = null; }
+    if (this._matrixResize) { window.removeEventListener('resize', this._matrixResize); this._matrixResize = null; }
+  }
+
+  renderVals() {
+    const helpLabels = [
+      "Let's make a website or app!",
+      "How can I use AI to make life easier?",
+      "I'm not sure, let's just talk tech!"
+    ];
+    const data = [
+      { name: 'Jacob Lawrence', cat: 'Arts · Archive', tagline: 'WordPress · PHP · SASS', snippet: 'An informational resource for the artist, built on WordPress with a custom photo-gallery plugin.' },
+      { name: 'Progress VA Education Fund', cat: 'Nonprofit', tagline: 'WordPress · Bootstrap · PHP', snippet: 'A Virginia nonprofit, designed and shipped on WordPress within a three-day turnaround.' },
+      { name: 'Advocate Accounting', cat: 'Small Business', tagline: 'WordPress · Stripe · Tailwind', snippet: 'A modernized, accessible redesign with an integrated cart and training portal powered by Stripe.' },
+      { name: 'Progress Alliance', cat: 'Security Audit', tagline: 'Python · Security', snippet: 'A full technical security assessment — interviews, penetration testing, and a remediation report.' },
+      { name: 'WCA Data Hub Portal', cat: 'Data Tooling', tagline: 'PHP · MySQL · JavaScript', snippet: 'A custom data hub with member registration, a MySQL backend, and Google Drive integrations.' },
+      { name: 'Sit N Stay', cat: 'Petcare', tagline: 'WordPress · SASS · JS', snippet: 'A full-service petcare site with playful hover interactions and a responsive service mosaic.' }
+    ];
+    const open = this.state.open;
+    if (open >= 0) this._lastActive = open;
+    const active = data[this._lastActive == null ? 0 : this._lastActive];
+    return {
+      projects: data.map((p, i) => {
+        const isOpen = this.state.open === i;
+        return {
+          ...p,
+          open: isOpen,
+          titleColor: isOpen ? '#DC5A3C' : '#323228',
+          catColor: isOpen ? '#DC5A3C' : '#a89f8d',
+          tagColor: isOpen ? '#DC5A3C' : '#a89f8d',
+          toggle: () => this.setState(s => ({ open: s.open === i ? -1 : i }))
+        };
+      }),
+      active: { ...active, tags: active.tagline.split(' · ') },
+      drawerTransform: open >= 0 ? 'translateX(0)' : 'translateX(110%)',
+      drawerOverlayOpacity: open >= 0 ? 1 : 0,
+      drawerPointer: open >= 0 ? 'auto' : 'none',
+      closeDrawer: () => this.setState({ open: -1 }),
+      modalOpen: this.state.modalOpen,
+      matrixRef: this._mref || (this._mref = (node) => { if (node) this.startMatrix(node); else this.stopMatrix(); }),
+      openModal: () => this.setState({ modalOpen: true }),
+      closeModal: () => this.setState({ modalOpen: false }),
+      stop: (e) => e.stopPropagation(),
+      submit: (e) => { e.preventDefault(); this.setState({ modalOpen: false }); },
+      helpOptions: helpLabels.map((label, i) => {
+        const sel = this.state.help === i;
+        return {
+          label,
+          select: () => this.setState({ help: i }),
+          border: sel ? '#DC5A3C' : '#e2dacc',
+          bg: sel ? '#FBEFEB' : '#F9F4ED',
+          dot: sel ? '#DC5A3C' : '#c3bbac',
+          fill: sel ? '#DC5A3C' : 'transparent'
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

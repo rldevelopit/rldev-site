@@ -1,0 +1,149 @@
+# Handoff: RLDev Minimal Portfolio (single-page)
+
+## Overview
+A deliberately minimal one-page personal site for **Rumeal Lovell** (developer & technical consultant, rldev.co). One screen, no scrolling beyond the page itself: an intro/bio on the left, a "Featured Projects" list on the right, and a "Reach out" CTA at the bottom. Clicking a project slides in a detail drawer from the right. The CTA opens a contact modal.
+
+## About the Design Files
+The files in this bundle are **design references created in HTML** — a prototype showing the intended look and behavior, **not production code to copy directly**. The task is to **recreate this design in the target codebase's existing environment** (React, Vue, Astro, plain HTML/CSS, etc.) using its established patterns, component primitives, and conventions. If no environment exists yet, pick the most appropriate stack for a small marketing/portfolio site and implement there.
+
+> Note on the source format: the prototype is authored as a "Design Component" (`.dc.html`) with a small custom runtime (`support.js`) and a logic class. **Ignore that runtime** — it is a prototyping harness. Reimplement the markup, styles, state, and the canvas animation in your framework of choice. All the styling is inline in the prototype; consolidate it into your styling system.
+
+## Fidelity
+**High-fidelity (hifi).** Final colors, typography, spacing, interactions, and animation are all specified below. Recreate pixel-accurately, then adapt to your component library.
+
+---
+
+## Layout (single screen, max-width 1180px, centered, side padding clamp(22px → 72px))
+
+Vertical order inside the centered container (`position:relative; overflow:hidden`):
+
+1. **Header row** — `display:flex; align-items:flex-start; justify-content:space-between`. Bottom margin clamp(40px → 80px).
+   - **Left:** logo lockup = brand icon (clamp 52→72px) + wordmark "RUMEAL LOVELL" (uppercase, two reasonable layouts; here single line) in Poppins 600, clamp(20→28px), letter-spacing 0.02em, color `#323228`. Gap 14px. Fades in (see Animations).
+   - **Right:** headshot image, width clamp(82→116px), `height:auto`, `margin-top:18px` (nudged down so it isn't clipped). No background.
+
+2. **Body** — CSS grid, two columns `minmax(0,0.82fr) minmax(0,1.18fr)`, gap clamp(32→88px), `align-items:start`.
+   - **Left column — Bio.** Font-size clamp(20→23px), line-height **1.85**, color `#4a463d`. Two paragraphs (copy below). Inside each, one key phrase is wrapped in a highlight span: color `#323228`, font-weight 600, `border-bottom:5px solid #DC5A3C`, plus a soft red glow `box-shadow:0 8px 18px -6px rgba(220,90,60,0.55)`.
+   - **Right column — Featured Projects.** Small uppercase heading "FEATURED PROJECTS" (Poppins 600, clamp 15→18px, letter-spacing 0.12em, color `#a89f8d`, margin-bottom 6px). Then a list of project rows (see Components). A trailing 1px `#d8d1c4` border closes the list at the bottom.
+
+3. **Footer / CTA** — `display:flex; flex-direction:column; align-items:center; gap:20px`. Top margin clamp(56→104px), top padding clamp(32→48px), `border-top:1px solid #d8d1c4`.
+   - **"Reach out" button** (opens modal) + below it a plain mailto link `hello@rldev.co` (Roboto 17px, color `#DC5A3C`, 1.5px underline at 35% opacity).
+
+Two **corner pattern** decorations: the brand pattern image, `position:absolute`, `opacity:0.5`, `pointer-events:none`, `z-index:0`, width clamp(120→200px), pinned **bottom-left only** (top-right was removed). All real content sits at `z-index:1`.
+
+---
+
+## Components
+
+### Project row (button, repeated 6×)
+- Container: `<div>` with `border-top:1px solid #d8d1c4`.
+- Button: `display:flex; align-items:baseline; justify-content:space-between; gap:18px; width:100%; padding:16px 4px`. Reset native button styles; `cursor:pointer`.
+- **Left group** (`display:flex; align-items:baseline; gap:14px`):
+  - **Category label** — Poppins 600, 11px, uppercase, letter-spacing 0.09em, `flex:none; width:96px`. Color `#a89f8d` (default) → `#DC5A3C` when this row is active. (Categories align via the fixed 96px width.)
+  - **Project name** — Poppins 600, 20px. Color `#323228` (default) → `#DC5A3C` when active. **Hover state: color → `#DC5A3C`** (transition color .25s).
+- **Right: tech tags** — Roboto 12.5px, letter-spacing 0.02em, `text-align:right; flex:none`. Color `#a89f8d` → `#DC5A3C` when active. Content is the tagline string (e.g. "WordPress · Stripe · Tailwind").
+- Clicking a row toggles its detail drawer (open same row again to close).
+
+### Project detail drawer (one shared panel, slides in from right)
+- Backdrop: `position:fixed; inset:0; z-index:140; background:rgba(40,40,32,0.30); backdrop-filter:blur(2px)`. `opacity` 0→1 and `pointer-events` none→auto when open. `transition:opacity .4s ease`. Clicking it closes the drawer.
+- Panel `<aside>`: `position:fixed; top:0; right:0; height:100vh; width:min(480px,94vw); z-index:150; background:#F9F4ED; box-shadow:-24px 0 70px rgba(0,0,0,0.22)`.
+  - **Animation:** `transform: translateX(110%)` (closed) ⇄ `translateX(0)` (open), `transition:transform .55s cubic-bezier(.5,0,.1,1)`. This is the core "slide in from the right" behavior — the panel lives off-canvas and slides on.
+  - Inner: `display:flex; flex-direction:column; gap:22px; height:100%; padding:clamp(30→46px); overflow-y:auto`.
+  - **Header:** category (Poppins 600, 12px, uppercase, letter-spacing 0.1em, `#DC5A3C`, margin-bottom 8px) over project name (Poppins 700, clamp 26→34px, line-height 1.05, letter-spacing -0.02em, `#323228`). Close × button on the right: 38px circle, font-size 24px, color `#857e70`, hover `background:#efe7da; color:#323228`.
+  - **Screenshot placeholder:** `aspect-ratio:4/3; border-radius:12px; border:1px solid #e2dacc`, striped fill `repeating-linear-gradient(135deg,#ece5d8 0 11px,#e4ddcf 11px 22px)`, centered monospace caption "screenshot — {name}". **Replace with a real screenshot per project.**
+  - **Description:** Roboto 16.5px, line-height 1.6, color `#4a463d`.
+  - **Tags:** chips, `display:flex; flex-wrap:wrap; gap:8px`. Each chip: Roboto 12px/500, color `#857e70`, `background:#fff; border:1px solid #e2dacc; border-radius:999px; padding:6px 13px`. (Derived by splitting the tagline on " · ".)
+
+### "Reach out" button (CTA)
+- Inline-flex, gap 11px; Poppins 600, font-size clamp(16→19px); color `#fff`; `background:#DC5A3C`; `border-radius:999px`; `padding:13px 30px`; `box-shadow:0 10px 26px rgba(220,90,60,0.3)`.
+- Leading **send icon** (paper-plane, 1.05em, white strokes, 2px, round caps).
+- Hover: `transform:translateY(-2px); background:#C24A2F; box-shadow:0 14px 32px rgba(220,90,60,0.4)`. Transitions: transform/box-shadow/background .2s.
+
+### Contact modal (opened by CTA)
+- Overlay: `position:fixed; inset:0; z-index:200; background:rgba(40,40,32,0.55); backdrop-filter:blur(3px)`; centers card; padding 24px; fades in .25s. Click overlay (outside card) closes; clicks inside `stopPropagation`.
+- Card: `display:flex; width:min(1040px,96vw); max-height:92vh; background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 40px 90px rgba(0,0,0,0.38)`. **Sized to fit without scrolling.**
+- **4 / 8 split** (flex-grow 4 vs 8, both `flex-basis:0; min-width:0`):
+  - **Left (4): dark animated panel** — `background:#14140f; overflow:hidden; position:relative`. Full-bleed `<canvas>` running the Matrix-style block rain (see Animations). A top+bottom inner gradient vignette overlays it (`linear-gradient(180deg, rgba(20,20,15,.55) 0%, transparent 22%, transparent 78%, rgba(20,20,15,.55) 100%)`, `pointer-events:none`).
+  - **Right (8): form** — padding clamp(26→40px); `display:flex; flex-direction:column; gap:14px`.
+    - Header: small brand icon (42px) + "RUMEAL / LOVELL" wordmark; right-aligned "Technical Consulting & Services" (Roboto 12px, `#857e70`) over "rldev.co" (Poppins 600, 13px, `#DC5A3C`); right block has `padding-right:34px` so it clears the close ×.
+    - Close × button: `position:absolute; top:16px; right:18px`, 30px circle, color `#857e70`, hover `background:#F4EEE4; color:#323228`.
+    - Fields (labels Poppins 500/13px `#323228`; inputs Roboto 14px, `background:#F9F4ED`, `border:1px solid #e2dacc`, `border-radius:9px`, `padding:11px 13px`; focus → `border-color:#DC5A3C; box-shadow:0 0 0 3px rgba(220,90,60,0.15)`):
+      - **Your Name** + **Your Email** in a 2-col grid (1fr 1fr, gap 12px).
+      - **Your Phone Number** *(optional)* — full width. "(optional)" in `#a89f8d`, weight 400.
+      - **How can I help?** — three single-select radio options as full-width buttons (`padding:10px 13px; border:1.5px solid; border-radius:9px`). Unselected: border `#e2dacc`, bg `#F9F4ED`, dot ring `#c3bbac`, empty fill. Selected: border `#DC5A3C`, bg `#FBEFEB`, ring + fill `#DC5A3C`. Custom radio = 16px ring with 7px inner dot.
+      - **Any other details I should know?** — textarea, 2 rows, `resize:none`.
+      - **Submit** — full-width pill, Poppins 600/16px, white on `#DC5A3C`, hover `#C24A2F`. (Prototype just closes the modal on submit; wire to your real backend/email.)
+
+---
+
+## Interactions & Behavior
+- **Project row click:** toggles the shared right-side drawer for that project (re-clicking the active row closes it). Active row's category/name/tags switch to `#DC5A3C`.
+- **Drawer open/close:** CSS transform transition (translateX 110% ⇄ 0) over .55s `cubic-bezier(.5,0,.1,1)`; backdrop opacity .4s. Backdrop click and × both close.
+- **Project name hover:** color → `#DC5A3C`.
+- **CTA click:** opens contact modal. Overlay/× close it. Submit prevents default and closes (replace with real handler).
+- **Help radios:** single-select.
+- **Entrance:** header, bio, project list, and footer each fade-up (`rl-fade`) with staggered delays (0 / 0.1s / 0.2s / 0.3s). Logo fades in (1s).
+- **Reduced motion:** honor `prefers-reduced-motion` (disable fades and the canvas rain).
+
+## Animations
+- **`rl-fade`** keyframe: `from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:none }`. Used for entrance reveals.
+- **Drawer slide:** transform transition described above (not a keyframe).
+- **Matrix block rain (modal left panel):** canvas animation, intentionally **subtle**.
+  - Grid of falling square blocks, cell size 22px, columns = ceil(panelWidth / 22).
+  - Each column has one descending "head" advancing one cell every **80–200ms** (randomized per column for stagger).
+  - Palette weighted toward dark: `['#2c2c24','#2c2c24','#DC5A3C','#829664']` (black-ish, black-ish, brand red, brand green). New color chosen when a column recycles off the bottom.
+  - Each frame: paint a translucent dark wash `rgba(20,20,15,0.10)` over the whole canvas (creates fading trails), then draw each head block at `globalAlpha 0.82`, size `cell-4` with a 2px inset.
+  - Handle devicePixelRatio (cap at 2) and re-measure on resize. Start when the panel mounts, cancel `requestAnimationFrame` when the modal closes.
+
+## State Management
+- `activeProject: number` (-1 = none) — drives the drawer and row active styling. Keep a `lastActive` so the drawer keeps showing content during the slide-out.
+- `modalOpen: boolean` — contact modal visibility; start/stop the canvas animation on change.
+- `helpChoice: number` (-1 = none) — selected radio.
+- Form fields (name/email/phone/details) — wire to your form/validation layer; the prototype does not persist them.
+
+## Design Tokens
+**Colors**
+- Background (paper): `#F9F4ED`
+- Ink / headings: `#323228`
+- Body text: `#4a463d` (bio) / `#5b564c` (secondary)
+- Muted / labels: `#857e70`, `#a89f8d`
+- Hairline border: `#d8d1c4`; input border: `#e2dacc`; input bg tint: `#F9F4ED`; chip surface: `#fff`
+- Brand red (primary accent): `#DC5A3C`; hover/darker: `#C24A2F`; tint: `#FBEFEB`
+- Brand green: `#829664`
+- Modal panel dark: `#14140f`; block dark: `#2c2c24`
+- Selection: bg `#DC5A3C`, text `#fff`
+
+**Typography**
+- Display/UI: **Poppins** (400/500/600/700)
+- Body: **Roboto** (400/500)
+- Mono (placeholder captions): `ui-monospace, Menlo, monospace`
+
+**Radius:** inputs/options 9px; screenshot 12px; modal 18px; pills/chips 999px.
+**Shadows:** CTA `0 10px 26px rgba(220,90,60,0.3)` (hover `0 14px 32px / .4`); drawer `-24px 0 70px rgba(0,0,0,0.22)`; modal `0 40px 90px rgba(0,0,0,0.38)`; highlight glow `0 8px 18px -6px rgba(220,90,60,0.55)`.
+**Easing:** entrances `cubic-bezier(.2,.7,.2,1)`; drawer `cubic-bezier(.5,0,.1,1)`.
+
+## Content (exact copy)
+**Bio P1:** "I'm Rumeal Lovell, a [developer and technical consultant] building fast, accessible web and AI tools for people and organizations doing meaningful work." (bracketed = red-underline highlight)
+**Bio P2:** "I take projects from [idea to shipped] — design, build, and the unglamorous parts in between. WordPress, custom PHP, Python, and whatever the job needs."
+
+**Projects** (category · name · tagline · description):
+1. Arts · Archive — **Jacob Lawrence** — WordPress · PHP · SASS — "An informational resource for the artist, built on WordPress with a custom photo-gallery plugin."
+2. Nonprofit — **Progress VA Education Fund** — WordPress · Bootstrap · PHP — "A Virginia nonprofit, designed and shipped on WordPress within a three-day turnaround."
+3. Small Business — **Advocate Accounting** — WordPress · Stripe · Tailwind — "A modernized, accessible redesign with an integrated cart and training portal powered by Stripe."
+4. Security Audit — **Progress Alliance** — Python · Security — "A full technical security assessment — interviews, penetration testing, and a remediation report."
+5. Data Tooling — **WCA Data Hub Portal** — PHP · MySQL · JavaScript — "A custom data hub with member registration, a MySQL backend, and Google Drive integrations."
+6. Petcare — **Sit N Stay** — WordPress · SASS · JS — "A full-service petcare site with playful hover interactions and a responsive service mosaic."
+
+**Contact modal radios:** "Let's make a website or app!" / "How can I use AI to make life easier?" / "I'm not sure, let's just talk tech!"
+**Contact email:** hello@rldev.co
+
+## Assets (in ./assets)
+- `rl-icon-colour.png` — brand mark (logo lockup + modal header).
+- `pattern-colour.png` — brand pattern (bottom-left corner decoration).
+- `headshot.png` — Rumeal's profile illustration (header, top-right).
+- Project **screenshots are placeholders** in the prototype — supply real captures for the drawer.
+- Send/paper-plane icon is inline SVG (in the CTA); reuse your icon set if available.
+
+## Files
+- `RLDev Simple.dc.html` — the full prototype (markup + inline styles + logic class with the canvas animation). Primary reference.
+- `support.js` — prototyping runtime only; **do not port**. Provided so the prototype runs locally if you open it.
+- `assets/` — images listed above.
