@@ -203,15 +203,23 @@ h2, h3, p {
 }
 
 .headshot {
-  width: clamp(82px, 9.5vw, 116px);
-  height: auto;
+  box-sizing: border-box;
+  width: clamp(132px, 13.5vw, 178px);
+  aspect-ratio: 1;
+  object-fit: contain;
   flex: none;
-  margin-top: 18px;
+  background: transparent;
+  border-radius: 50%;
+  padding: 14px;
+  margin-top: 6px;
 }
 
-[data-mode=dark] .logo-mark,
-[data-mode=dark] .headshot {
+[data-mode=dark] .logo-mark {
   filter: invert(1) hue-rotate(180deg);
+}
+
+[data-mode=dark] .headshot {
+  background: var(--accent);
 }
 
 .body-grid {
@@ -490,6 +498,9 @@ h2, h3, p {
 }
 .theme-opt .swatch {
   box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.35);
+}
+.theme-opt[data-accent=black] .swatch {
+  background: var(--fg-accent);
 }
 
 .drawer-backdrop {

@@ -378,7 +378,11 @@ function initTheme() {
   const label = document.getElementById('accentLabel');
   const swatch = document.getElementById('accentSwatch');
 
-  const NAMES = { red: 'Red', green: 'Green', black: 'Black', fun: 'Fun' };
+  const NAMES = { red: 'Red', green: 'Green', fun: 'Fun' };
+  const blackOptLabel = document.getElementById('blackOptLabel');
+  const isDark = () => root.getAttribute('data-mode') === 'dark';
+  const accentName = (a) => a === 'black' ? (isDark() ? 'White' : 'Dark') : (NAMES[a] || 'Red');
+  const refreshMonoLabel = () => { if (blackOptLabel) blackOptLabel.textContent = isDark() ? 'White' : 'Dark'; };
 
   function store(key, val) { try { localStorage.setItem(key, val); } catch (e) {} }
 
@@ -386,6 +390,8 @@ function initTheme() {
     root.setAttribute('data-mode', mode);
     if (modeBtn) modeBtn.setAttribute('aria-pressed', mode === 'dark' ? 'true' : 'false');
     store('rl-mode', mode);
+    refreshMonoLabel();
+    syncAccentUI(root.getAttribute('data-accent') || 'red');
   }
   if (modeBtn) {
     modeBtn.setAttribute('aria-pressed', root.getAttribute('data-mode') === 'dark' ? 'true' : 'false');
@@ -395,7 +401,7 @@ function initTheme() {
   }
 
   function syncAccentUI(accent) {
-    if (label) label.textContent = NAMES[accent] || 'Red';
+    if (label) label.textContent = accentName(accent);
     if (swatch) swatch.classList.toggle('swatch--fun', accent === 'fun');
     if (menu) menu.querySelectorAll('.theme-opt').forEach(function (opt) {
       opt.setAttribute('aria-selected', opt.dataset.accent === accent ? 'true' : 'false');
@@ -428,6 +434,7 @@ function initTheme() {
     });
   }
 
+  refreshMonoLabel();
   const current = root.getAttribute('data-accent') || 'red';
   syncAccentUI(current);
   if (current === 'fun') startFun();

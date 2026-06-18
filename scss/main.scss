@@ -193,18 +193,29 @@ h2, h3, p { margin: 0; }
   flex: none;
 }
 
+// The headshot lives in a fixed circular box in both modes; the background is
+// transparent in light and fills with the accent in dark, so toggling themes
+// never shifts the layout. Sized to the portrait's height so it isn't shrunk.
 .headshot {
-  width: clamp(82px, 9.5vw, 116px);
-  height: auto;
+  box-sizing: border-box;
+  width: clamp(132px, 13.5vw, 178px);
+  aspect-ratio: 1;
+  object-fit: contain;
   flex: none;
-  margin-top: 18px;
+  background: transparent;
+  border-radius: 50%;
+  padding: 14px;
+  margin-top: 6px;
 }
 
-// The logo wordmark and headshot are black SVGs; flip their lightness in dark
-// mode (hue-rotate keeps the logo's colored diamonds roughly on-hue).
-[data-mode="dark"] .logo-mark,
-[data-mode="dark"] .headshot {
+// The logo wordmark is a black SVG; flip its lightness in dark mode
+// (hue-rotate keeps the colored diamonds roughly on-hue).
+[data-mode="dark"] .logo-mark {
   filter: invert(1) hue-rotate(180deg);
+}
+
+[data-mode="dark"] .headshot {
+  background: var(--accent);
 }
 
 // ---- Body grid: bio + projects -----------------------------
@@ -456,6 +467,8 @@ h2, h3, p { margin: 0; }
   &[aria-selected="true"] { font-weight: 700; }
 
   .swatch { box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.35); }
+
+  &[data-accent="black"] .swatch { background: var(--fg-accent); }
 }
 
 // ---- Project drawer ----------------------------------------
