@@ -94,7 +94,24 @@
   --accent-tint: color-mix(in srgb, var(--accent) 14%, var(--paper));
   --rain-dark:   #14140f;
   --block-dark:  #2c2c24;
+
+  // Filled-button background (CTA + submit). The button text is var(--paper),
+  // which is LIGHT in light mode and DARK in dark mode, so the accent must be
+  // deep enough in light mode and bright enough in dark mode for WCAG AA. The
+  // defaults below are correct for the high-contrast "black" accent and the
+  // animated "fun" accent; specific accents are tuned per mode underneath.
+  --accent-btn:        var(--accent);
+  --accent-btn-strong: var(--accent-strong);
 }
+
+// Light mode — light text needs a deeper accent (AA: ≥4.5:1 on --paper).
+[data-mode="light"][data-accent="red"]   { --accent-btn: #B8442B; --accent-btn-strong: #A53A23; }
+[data-mode="light"][data-accent="green"] { --accent-btn: #5F6F45; --accent-btn-strong: #54613B; }
+
+// Dark mode — base accent already passes with the dark button text; only the
+// hover (normally a darker accent) needs to brighten so it stays ≥4.5:1.
+[data-mode="dark"][data-accent="red"]     { --accent-btn-strong: #E06A4D; }
+[data-mode="dark"][data-accent="green"]   { --accent-btn-strong: #8FA372; }
 
 // ---- Self-hosted fonts -------------------------------------
 // Poppins (400/500/600/700) + Roboto (400–500 variable) served
@@ -383,7 +400,7 @@ h2, h3, p { margin: 0; }
   font-weight: 600;
   font-size: clamp(16px, 1.9vw, 19px);
   color: var(--paper);
-  background: var(--accent);
+  background: var(--accent-btn);
   border-radius: 999px;
   padding: 13px 30px;
   box-shadow: 0 10px 26px rgba(var(--accent-rgb), 0.3);
@@ -393,7 +410,7 @@ h2, h3, p { margin: 0; }
 
   &:hover {
     transform: translateY(-2px);
-    background: var(--accent-strong);
+    background: var(--accent-btn-strong);
     box-shadow: 0 14px 32px rgba(var(--accent-rgb), 0.4);
   }
 
@@ -970,12 +987,12 @@ h2, h3, p { margin: 0; }
   font-weight: 600;
   font-size: 16px;
   color: var(--paper);
-  background: var(--accent);
+  background: var(--accent-btn);
   border-radius: 999px;
   padding: 14px;
   transition: background .2s;
 
-  &:hover { background: var(--accent-strong); }
+  &:hover { background: var(--accent-btn-strong); }
   &:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
   &:disabled { opacity: 0.6; cursor: not-allowed; }
 }
