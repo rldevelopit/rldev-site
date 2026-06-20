@@ -103,7 +103,7 @@ function openDrawer(index) {
   });
 
   document.getElementById('drawer').classList.add('is-open');
-  document.getElementById('drawer').setAttribute('aria-hidden', 'false');
+  document.getElementById('drawer').removeAttribute('inert');
   document.getElementById('drawerBackdrop').classList.add('is-open');
 }
 
@@ -111,7 +111,7 @@ function closeDrawer() {
   if (activeProject === -1) return;
   activeProject = -1;
   document.getElementById('drawer').classList.remove('is-open');
-  document.getElementById('drawer').setAttribute('aria-hidden', 'true');
+  document.getElementById('drawer').setAttribute('inert', '');
   document.getElementById('drawerBackdrop').classList.remove('is-open');
   document.querySelectorAll('.project-row.is-active').forEach(function (row) {
     row.classList.remove('is-active');
@@ -271,6 +271,21 @@ function stopMatrix() {
 
 function initMatrix() {}
 
+// Cloudflare Turnstile is loaded lazily — only when the contact
+// modal first opens — so it costs nothing (script, main-thread work,
+// third-party cookies) on the initial page load. The default api.js
+// auto-renders the existing .cf-turnstile widget once it arrives.
+let turnstileLoaded = false;
+function loadTurnstile() {
+  if (turnstileLoaded) return;
+  turnstileLoaded = true;
+  const s = document.createElement('script');
+  s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+  s.async = true;
+  s.defer = true;
+  document.head.appendChild(s);
+}
+
 // modal
 function initModal() {
   const overlay = document.getElementById('cardModal');
@@ -281,10 +296,13 @@ function initModal() {
 
   function openModal() {
     overlay.classList.add('is-open');
+    overlay.removeAttribute('inert');
+    loadTurnstile();
     startMatrix();
   }
   function closeModal() {
     overlay.classList.remove('is-open');
+    overlay.setAttribute('inert', '');
     stopMatrix();
   }
 

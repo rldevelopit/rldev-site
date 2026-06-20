@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "A simple HTML, Sass, and JavaScript starter theme",
   "scripts": {
-    "build:css": "sass scss:css --no-source-map",
+    "build:css": "sass scss:css --no-source-map --style=compressed",
+    "build:js": "esbuild js/main.js --minify --outfile=js/main.min.js",
+    "build": "pnpm run build:css && pnpm run build:js",
     "watch:css": "sass --watch scss:css",
+    "watch:js": "esbuild js/main.js --minify --outfile=js/main.min.js --watch",
     "serve": "live-server --watch=css,*.html,js",
-    "dev": "concurrently \"pnpm run watch:css\" \"pnpm run serve\""
+    "dev": "concurrently \"pnpm run watch:css\" \"pnpm run watch:js\" \"pnpm run serve\""
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
+    "esbuild": "^0.28.1",
     "live-server": "^1.2.2",
     "playwright": "^1.59.1",
     "sass": "^1.0.0"

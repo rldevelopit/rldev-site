@@ -19,7 +19,7 @@
   --body:         #4a463d;
   --body-2:       #5b564c;
   --muted:        #857e70;
-  --muted-2:      #a89f8d;
+  --muted-2:      #6b6452;
   --hairline:     #d8d1c4;
   --field-border: #e2dacc;
   --field-bg:     #F9F4ED;
@@ -43,7 +43,7 @@
   --body:         #D8D1C4;
   --body-2:       #C3BCAD;
   --muted:        #9A9283;
-  --muted-2:      #7E776A;
+  --muted-2:      #948d7d;
   --hairline:     #36332B;
   --field-border: #3A372E;
   --field-bg:     #1E1C16;
@@ -94,6 +94,49 @@
   --accent-tint: color-mix(in srgb, var(--accent) 14%, var(--paper));
   --rain-dark:   #14140f;
   --block-dark:  #2c2c24;
+}
+
+// ---- Self-hosted fonts -------------------------------------
+// Poppins (400/500/600/700) + Roboto (400–500 variable) served
+// locally from assets/fonts to avoid the render-blocking Google
+// Fonts request. Only latin + latin-ext subsets are shipped.
+$range-latin: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+$range-latin-ext: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+
+@each $wght in 400, 500, 600, 700 {
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: $wght;
+    font-display: swap;
+    src: url('../assets/fonts/poppins-#{$wght}-latin.woff2') format('woff2');
+    unicode-range: $range-latin;
+  }
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: $wght;
+    font-display: swap;
+    src: url('../assets/fonts/poppins-#{$wght}-latin-ext.woff2') format('woff2');
+    unicode-range: $range-latin-ext;
+  }
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('../assets/fonts/roboto-400-latin.woff2') format('woff2');
+  unicode-range: $range-latin;
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('../assets/fonts/roboto-400-latin-ext.woff2') format('woff2');
+  unicode-range: $range-latin-ext;
 }
 
 $display: 'Poppins', system-ui, sans-serif;

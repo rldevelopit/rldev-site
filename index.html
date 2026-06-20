@@ -19,13 +19,9 @@
     content="Rumeal Lovell, developer and technical consultant building fast, accessible web and AI tools." />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="css/main.css?ver=8" />
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/roboto-400-latin.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/poppins-600-latin.woff2" crossorigin />
+  <link rel="stylesheet" href="css/main.css?ver=10" />
 </head>
 
 <body>
@@ -34,7 +30,7 @@
 
     <header class="site-header rl-fade">
       <div class="logo-lockup">
-        <img class="logo-mark" src="assets/icons/rl-logo.svg" alt="Rumeal Lovell" />
+        <img class="logo-mark" src="assets/icons/rl-logo.svg" alt="Rumeal Lovell" width="469" height="110" />
       </div>
       <img class="headshot" src="assets/img/headshot.svg" alt="Rumeal Lovell" />
     </header>
@@ -55,7 +51,7 @@
     </div>
 
     <footer class="reach-out rl-fade rl-fade-3">
-      <img class="reach-out-sep" src="assets/icons/separator.svg" alt="" aria-hidden="true" />
+      <img class="reach-out-sep" src="assets/icons/separator.svg" alt="" aria-hidden="true" width="220" height="16" />
       <button type="button" class="cta-btn open-card-modal">
         <svg class="cta-icon" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M22 2 11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -69,7 +65,7 @@
   </main>
 
   <div class="drawer-backdrop" id="drawerBackdrop"></div>
-  <aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawerName" role="dialog" aria-modal="true">
+  <aside class="drawer" id="drawer" inert aria-labelledby="drawerName" role="dialog" aria-modal="true">
     <div class="drawer-inner">
       <div class="drawer-head">
         <div class="drawer-titles">
@@ -91,7 +87,7 @@
     </div>
   </aside>
 
-  <div class="modal-overlay" id="cardModal">
+  <div class="modal-overlay" id="cardModal" inert>
     <div class="modal-card" id="modalCard" role="dialog" aria-modal="true" aria-label="Reach out">
 
       <div class="modal-rain">
@@ -104,7 +100,7 @@
 
         <div class="modal-head">
           <div class="modal-brand">
-            <img src="assets/img/rl-icon-colour.png" alt="" aria-hidden="true" />
+            <img src="assets/img/rl-icon-colour.png" alt="" aria-hidden="true" width="339" height="453" />
             <span class="modal-wordmark">Rumeal<br />Lovell</span>
           </div>
           <div class="modal-tagline">
@@ -211,7 +207,7 @@
     </div>
   </div>
 
-  <script src="js/main.js?version=11"></script>
+  <script src="js/main.min.js?version=12"></script>
 </body>
 
 </html>
