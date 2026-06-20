@@ -194,6 +194,9 @@ let resizeHandler = null;
 
 function startMatrix() {
   if (prefersReducedMotion) return;
+  // The rain panel is hidden on mobile (display:none) — skip the animation
+  // so the rAF loop doesn't spin behind a zero-size canvas.
+  if (window.matchMedia('(max-width: 720px)').matches) return;
   const canvas = document.getElementById('rainCanvas');
   if (!canvas) return;
   stopMatrix();

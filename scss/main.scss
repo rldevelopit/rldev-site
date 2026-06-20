@@ -1036,12 +1036,19 @@ h2, h3, p { margin: 0; }
     align-items: flex-start;
     gap: 6px;
 
+    .row-left { flex-direction: column; align-items: flex-start; gap: 2px; }
+    .row-cat { width: auto; }
     .row-tags { text-align: left; }
   }
 
+  // Modal stacks and the body scrolls within the capped card height;
+  // the matrix panel is dropped entirely on small screens.
   .modal-card { flex-direction: column; max-height: 94vh; }
-  .modal-rain { flex: none; height: 120px; }
-  .modal-body { flex: none; }
+  .modal-rain { display: none; }
+  .modal-body { flex: 1 1 auto; min-height: 0; }
+
+  // Stack the name/email pair into a single column on mobile.
+  .field-grid { grid-template-columns: 1fr; }
 
   .theme-switch {
     right: 12px;
