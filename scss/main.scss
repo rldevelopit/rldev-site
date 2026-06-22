@@ -169,7 +169,19 @@ $ease-drawer: cubic-bezier(.5, 0, .1, 1);
 html, body { margin: 0; padding: 0; }
 
 body {
-  background: var(--paper);
+  // Mostly paper, with a faint wash of the active accent easing in at the
+  // top and bottom of the page. Uses --accent-rgb so it follows the chosen
+  // accent (and works over the dark paper in dark mode).
+  background:
+    linear-gradient(180deg,
+      rgba(var(--accent-rgb), 0.09) 0%,
+      rgba(var(--accent-rgb), 0.04) 14%,
+      transparent 32%,
+      transparent 60%,
+      rgba(var(--accent-rgb), 0.07) 86%,
+      rgba(var(--accent-rgb), 0.13) 100%),
+    var(--paper);
+  background-repeat: no-repeat;
   color: var(--body-2);
   font-family: $body;
   -webkit-font-smoothing: antialiased;

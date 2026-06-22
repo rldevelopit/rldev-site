@@ -1,7 +1,7 @@
 [
   {
     "name": "Jacob Lawrence",
-    "cat": "Arts · Archive",
+    "cat": "Small Business",
     "tagline": "WordPress · PHP · SASS",
     "tech": ["WordPress", "PHP", "SASS", "JavaScript", "Bulma", "ACF"],
     "desc": "An informational resource for the artist Jacob Lawrence, built on WordPress with a custom photo-gallery plugin. A rewarding deep dive into the lives of the artists, tying Lawrence's art into the content so the site feels like an art piece itself. A collaboration with <a href=\"https://montanab.com/?src=rumeal\" target=\"_blank\" rel=\"noopener\">Montana Banana</a>.",
@@ -46,7 +46,7 @@
   },
   {
     "name": "Sit N Stay",
-    "cat": "Petcare",
+    "cat": "Small Business ",
     "tagline": "WordPress · SASS · JS",
     "tech": ["WordPress", "PHP", "SASS", "JavaScript", "Bulma", "ACF"],
     "desc": "A full-service petcare company in Burien, Washington. Features playful hover interactions, paw-print call-to-action elements, and a responsive color mosaic on the services page. A collaboration with <a href=\"https://montanab.com/?src=rumeal\" target=\"_blank\" rel=\"noopener\">Montana Banana</a>.",
