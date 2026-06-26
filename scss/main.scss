@@ -429,11 +429,31 @@ h2, h3, p { margin: 0; }
   &:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 }
 
+// reach out button inside the top bar (mobile only; hidden on desktop)
+.topbar-cta {
+  all: unset;
+  display: none;
+  cursor: pointer;
+  align-items: center;
+  gap: 6px;
+  font-family: $display;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--paper);
+  background: var(--accent-btn);
+  border-radius: 999px;
+  padding: 8px 16px;
+  transition: background .2s;
+
+  &:hover { background: var(--accent-btn-strong); }
+  &:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+}
+
 // ---- Theme switcher ----------------------------------------
 .theme-switch {
   position: fixed;
   right: clamp(14px, 3vw, 28px);
-  bottom: clamp(14px, 3vw, 28px);
+  top: clamp(14px, 3vw, 28px);
   z-index: 120;
   display: flex;
   align-items: center;
@@ -507,7 +527,7 @@ h2, h3, p { margin: 0; }
 .theme-menu {
   position: absolute;
   right: 0;
-  bottom: calc(100% + 10px);
+  top: calc(100% + 10px);
   min-width: 150px;
   padding: 6px;
   background: var(--surface);
@@ -1062,10 +1082,29 @@ h2, h3, p { margin: 0; }
   // Stack the name/email pair into a single column on mobile.
   .field-grid { grid-template-columns: 1fr; }
 
+  // theme switch becomes a full-width top bar on mobile, with a Reach out
+  // button pushed to the left and the theme controls on the right
   .theme-switch {
-    right: 12px;
-    bottom: 12px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 8px 14px;
+    border: none;
+    border-bottom: 1px solid var(--hairline);
+    border-radius: 0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   }
+
+  .topbar-cta {
+    display: inline-flex;
+    margin-right: auto;
+  }
+
+  .page { padding-top: 88px; }
 }
 
 // ---- Reduced motion ----------------------------------------
