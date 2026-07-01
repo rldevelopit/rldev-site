@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
   initModal();
   initMatrix();
   initToast();
-  initFormTest();
   initStickyCta();
 });
 
@@ -447,21 +446,6 @@ function hideToast() {
 function initToast() {
   const closeBtn = document.getElementById('toastClose');
   if (closeBtn) closeBtn.addEventListener('click', hideToast);
-}
-
-// ?success / ?fail — preview the result states without submitting
-function initFormTest() {
-  const params = new URLSearchParams(location.search);
-  const type = params.has('success') ? 'success' : (params.has('fail') ? 'error' : null);
-  if (!type) return;
-  const form = document.getElementById('contactForm');
-  openContactModal();
-  if (!form) return;
-  if (type === 'success') {
-    markFormSuccess(form, SENT_MSG);
-  } else {
-    markFormError(form, ERR_MSG);
-  }
 }
 
 // theme
