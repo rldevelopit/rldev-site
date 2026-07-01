@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function () {
   loadProjects();
   initModal();
   initMatrix();
+  initToast();
+  initFormTest();
+  initStickyCta();
 });
 
 const prefersReducedMotion =
@@ -274,6 +277,18 @@ function stopMatrix() {
 
 function initMatrix() {}
 
+// sticky cta: fade the desktop floating button out once the footer button is
+// in view, and back in when it scrolls away — never both at once
+function initStickyCta() {
+  const floatEl = document.getElementById('ctaFloat');
+  const anchor = document.querySelector('.reach-out .cta-btn');
+  if (!floatEl || !anchor || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(function (entries) {
+    floatEl.classList.toggle('is-docked', entries[0].isIntersecting);
+  }, { threshold: 0 });
+  io.observe(anchor);
+}
+
 // Cloudflare Turnstile is loaded lazily — only when the contact
 // modal first opens — so it costs nothing (script, main-thread work,
 // third-party cookies) on the initial page load. The default api.js
@@ -290,6 +305,23 @@ function loadTurnstile() {
 }
 
 // modal
+function openContactModal() {
+  const overlay = document.getElementById('cardModal');
+  if (!overlay) return;
+  overlay.classList.add('is-open');
+  overlay.removeAttribute('inert');
+  loadTurnstile();
+  startMatrix();
+}
+
+function closeContactModal() {
+  const overlay = document.getElementById('cardModal');
+  if (!overlay) return;
+  overlay.classList.remove('is-open');
+  overlay.setAttribute('inert', '');
+  stopMatrix();
+}
+
 function initModal() {
   const overlay = document.getElementById('cardModal');
   const closeBtn = document.getElementById('cardModalClose');
@@ -297,35 +329,23 @@ function initModal() {
   const form = document.getElementById('contactForm');
   if (!overlay) return;
 
-  function openModal() {
-    overlay.classList.add('is-open');
-    overlay.removeAttribute('inert');
-    loadTurnstile();
-    startMatrix();
-  }
-  function closeModal() {
-    overlay.classList.remove('is-open');
-    overlay.setAttribute('inert', '');
-    stopMatrix();
-  }
-
   document.querySelectorAll('.open-card-modal').forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
-      openModal();
+      openContactModal();
     });
   });
 
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeContactModal);
   if (card) card.addEventListener('click', function (e) { e.stopPropagation(); });
   overlay.addEventListener('click', function (e) {
-    if (e.target === overlay) closeModal();
+    if (e.target === overlay) closeContactModal();
   });
 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
       if (overlay.classList.contains('is-open')) {
-        closeModal();
+        closeContactModal();
       } else if (activeProject !== -1) {
         closeDrawer();
       }
@@ -340,26 +360,27 @@ function initModal() {
   if (form) initContactForm(form);
 }
 
+const SENT_MSG = "Thanks! Your message is on its way. I'll be in touch soon.";
+const ERR_MSG = 'Something went wrong. Please try again or email rumeal@rldevelopit.com.';
+
 function initContactForm(form) {
   const submitBtn = form.querySelector('.submit-btn');
-  const status = document.getElementById('contactStatus');
   const endpoint = form.getAttribute('action') || 'contact.php';
 
-  function setStatus(text, state) {
-    if (!status) return;
-    status.textContent = text;
-    status.classList.remove('is-error', 'is-success', 'is-loading');
-    if (state) status.classList.add('is-' + state);
+  function setLoading(on) {
+    if (!submitBtn) return;
+    submitBtn.disabled = on;
+    if (on) {
+      submitBtn.dataset.label = submitBtn.dataset.label || submitBtn.innerHTML;
+      submitBtn.innerHTML = '<span class="btn-spinner"></span>Sending…';
+    } else if (submitBtn.dataset.label) {
+      submitBtn.innerHTML = submitBtn.dataset.label;
+    }
   }
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.dataset.originalLabel = submitBtn.dataset.originalLabel || submitBtn.innerHTML;
-      submitBtn.innerHTML = 'Sending…';
-    }
-    setStatus('', 'loading');
+    setLoading(true);
 
     try {
       const res = await fetch(endpoint, {
@@ -371,23 +392,76 @@ function initContactForm(form) {
       try { payload = await res.json(); } catch (_) {}
 
       if (res.ok && payload.ok) {
-        form.reset();
-        setStatus("Thanks! Your message is on its way. I'll be in touch soon.", 'success');
-        if (window.turnstile) window.turnstile.reset();
+        markFormSuccess(form, SENT_MSG);
       } else {
-        setStatus(payload.error || 'Something went wrong. Please try again or email rumeal@rldevelopit.com.', 'error');
+        markFormError(form, payload.error || ERR_MSG);
+        setLoading(false);
         if (window.turnstile) window.turnstile.reset();
       }
     } catch (err) {
-      setStatus('Network error. Please try again or email rumeal@rldevelopit.com.', 'error');
+      markFormError(form, 'Network error. Please try again or email rumeal@rldevelopit.com.');
+      setLoading(false);
       if (window.turnstile) window.turnstile.reset();
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        if (submitBtn.dataset.originalLabel) submitBtn.innerHTML = submitBtn.dataset.originalLabel;
-      }
     }
   });
+}
+
+function markFormSuccess(form, message) {
+  form.classList.remove('is-error');
+  form.classList.add('is-success');
+  form.querySelectorAll('input, textarea, button').forEach(function (el) { el.disabled = true; });
+  const submitBtn = form.querySelector('.submit-btn');
+  if (submitBtn) submitBtn.innerHTML = 'Message sent';
+  showToast('success', message);
+}
+
+function markFormError(form, message) {
+  form.classList.remove('is-success');
+  form.classList.add('is-error');
+  showToast('error', message);
+}
+
+// toast
+const ICON_OK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="m8 12 2.5 2.5L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ICON_BAD = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+let toastTimer = null;
+
+function showToast(type, message) {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  const msgEl = document.getElementById('toastMsg');
+  const iconEl = toast.querySelector('.toast-icon');
+  if (msgEl) msgEl.textContent = message;
+  if (iconEl) iconEl.innerHTML = type === 'success' ? ICON_OK : ICON_BAD;
+  toast.classList.remove('is-success', 'is-error');
+  toast.classList.add('is-' + type, 'is-open');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(hideToast, 6000);
+}
+
+function hideToast() {
+  const toast = document.getElementById('toast');
+  if (toast) toast.classList.remove('is-open');
+}
+
+function initToast() {
+  const closeBtn = document.getElementById('toastClose');
+  if (closeBtn) closeBtn.addEventListener('click', hideToast);
+}
+
+// ?success / ?fail — preview the result states without submitting
+function initFormTest() {
+  const params = new URLSearchParams(location.search);
+  const type = params.has('success') ? 'success' : (params.has('fail') ? 'error' : null);
+  if (!type) return;
+  const form = document.getElementById('contactForm');
+  openContactModal();
+  if (!form) return;
+  if (type === 'success') {
+    markFormSuccess(form, SENT_MSG);
+  } else {
+    markFormError(form, ERR_MSG);
+  }
 }
 
 // theme

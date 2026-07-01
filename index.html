@@ -16,12 +16,12 @@
   </script>
   <title>Rumeal Lovell | Developer &amp; Technical Consultant</title>
   <meta name="description"
-    content="Rumeal Lovell, developer and technical consultant building fast, accessible web and AI tools." />
+    content="Rumeal Lovell, developer and technical consultant building fast, accessible web tools." />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/roboto-400-latin.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/poppins-600-latin.woff2" crossorigin />
-  <link rel="stylesheet" href="css/main.css?ver=18" />
+  <link rel="stylesheet" href="css/main.css?ver=24" />
 </head>
 
 <body>
@@ -38,7 +38,7 @@
     <div class="body-grid">
       <div class="bio rl-fade rl-fade-1">
         <p>I&rsquo;m Rumeal Lovell, a <strong>developer</strong> and <strong>technical consultant</strong> building fast,
-          accessible <span class="hl">web and AI tools</span> for people and organizations <span class="hl">doing</span> <span class="hl">meaningful</span> <span class="hl">work</span>.</p>
+          accessible <span class="hl">web tools</span> for people and organizations <span class="hl">doing</span> <span class="hl">meaningful</span> <span class="hl">work</span>.</p>
         <p>I take projects from <span class="hl">idea to reality</span>: design, build, and the unglamorous parts
           in between. A website, an information security audit, an app, or whatever the job needs. <span class="hl">I got you!</span></p>
       </div>
@@ -109,8 +109,6 @@
           </div>
         </div>
 
-        <p class="form-status" id="contactStatus" role="status" aria-live="polite"></p>
-
         <form class="contact-form" id="contactForm" action="contact.php" method="post" novalidate>
           <div class="form-honeypot" aria-hidden="true">
             <label for="cf-website">Website</label>
@@ -167,6 +165,17 @@
     </div>
   </div>
 
+  <div class="cta-float is-docked" id="ctaFloat">
+    <button type="button" class="cta-btn open-card-modal">
+      <svg class="cta-icon" width="1.05em" height="1.05em" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M22 2 11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M22 2 15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+      Reach out
+    </button>
+  </div>
+
   <div class="theme-switch">
     <button type="button" class="topbar-cta open-card-modal">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -215,7 +224,13 @@
     </div>
   </div>
 
-  <script src="js/main.min.js?version=15"></script>
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="toast-icon" aria-hidden="true"></span>
+    <span class="toast-msg" id="toastMsg"></span>
+    <button type="button" class="toast-close" id="toastClose" aria-label="Dismiss">&times;</button>
+  </div>
+
+  <script src="js/main.min.js?version=17"></script>
 </body>
 
 </html>
