@@ -6,6 +6,7 @@
     "build:css": "sass scss:css --no-source-map --style=compressed",
     "build:js": "esbuild js/main.js --minify --outfile=js/main.min.js",
     "build": "pnpm run build:css && pnpm run build:js",
+    "optimize:images": "node scripts/optimize-images.mjs",
     "watch:css": "sass --watch scss:css",
     "watch:js": "esbuild js/main.js --minify --outfile=js/main.min.js --watch",
     "serve": "live-server --watch=css,*.html,js",
@@ -16,7 +17,8 @@
     "esbuild": "^0.28.1",
     "live-server": "^1.2.2",
     "playwright": "^1.59.1",
-    "sass": "^1.0.0"
+    "sass": "^1.0.0",
+    "sharp": "^0.35.2"
   },
   "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac"
 }
